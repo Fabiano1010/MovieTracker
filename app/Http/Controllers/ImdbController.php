@@ -67,4 +67,75 @@ class ImdbController extends Controller
         }
     }
 
+    public function getPopularMovies(Request $request){
+        $request->validate([
+            'country' => ['string'],
+        ]);
+        if($request->country == ''){
+            $response = Http::get("https://api.imdbapi.dev/titles",[
+                'types'=>'MOVIE',
+                'sortBy'=>'SORT_BY_POPULARITY'
+            ]);
+
+        }else{
+            $response = Http::get("https://api.imdbapi.dev/titles",[
+                'types'=>'MOVIE',
+                'sortBy'=>'SORT_BY_POPULARITY',
+                'countryCodes'=>$request->country
+            ]);
+        }
+
+        if ($response->successful()) {
+            $data = $response->json();
+            return Inertia::render('Dashboard', [
+                'movies' => $data,
+            ]);
+        }
+
+        if ($response->failed()) {
+            // Logowanie błędu
+            \Log::error('API request failed', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
+
+            return null;
+        }
+    }
+    public function getPopularTvSeries(Request $request){
+        $request->validate([
+            'country' => ['string'],
+        ]);
+        if($request->country == ''){
+            $response = Http::get("https://api.imdbapi.dev/titles",[
+                'types'=>'TV_SERIES',
+                'sortBy'=>'SORT_BY_POPULARITY'
+            ]);
+
+        }else{
+            $response = Http::get("https://api.imdbapi.dev/titles",[
+                'types'=>'TV_SERIES',
+                'sortBy'=>'SORT_BY_POPULARITY',
+                'countryCodes'=>$request->country
+            ]);
+        }
+
+        if ($response->successful()) {
+            $data = $response->json();
+            return Inertia::render('Dashboard', [
+                'movies' => $data,
+            ]);
+        }
+
+        if ($response->failed()) {
+            // Logowanie błędu
+            \Log::error('API request failed', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
+
+            return null;
+        }
+    }
 }
+

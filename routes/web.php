@@ -20,7 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('movies')->group(function () {
         Route::get('/search', [ImdbController::class, 'search'])->name('movies.search');
         Route::get('/title', [ImdbController::class, 'getTitle'])->name('movies.title');;
-        Route::get('/popular', [ImdbController::class, 'getPopular'])->name('movies.popular');;
+        Route::get('/popular', [ImdbController::class, 'getPopularMovies'])->name('movies.popularmovies');
+        Route::get('/popular', [ImdbController::class, 'getPopularTvSeries'])->name('movies.populartvseries');
     });
 
 });
@@ -32,7 +33,10 @@ Route::middleware('guest')->group(function () {
 
     Route::inertia('/login', 'Auth/Login')->name('login');
     Route::post('/login',[AuthController::class,'Login']);
-
+    Route::prefix('movies')->group(function () {
+        Route::get('/popular', [ImdbController::class, 'getPopularMovies'])->name('movies.popularmovies');
+        Route::get('/popular', [ImdbController::class, 'getPopularTvSeries'])->name('movies.populartvseries');
+    });
 });
 
 
