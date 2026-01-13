@@ -14,6 +14,10 @@ return [
     |
     */
 
+    'imdb' => [
+        'base_url' => env('IMDB_API_BASE_URL', 'https://imdbapi.dev/'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

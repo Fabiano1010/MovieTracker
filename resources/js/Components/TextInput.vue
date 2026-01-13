@@ -13,6 +13,7 @@
             type: String,
             default: 'text'
         },
+        placeholder: String,
         message: String
     });
 
@@ -21,7 +22,7 @@
 <template>
     <div class="mb-6">
         <label :for="name">{{ name }}</label>
-        <input :type="type" v-model="model" :class="{'!ring-red-500' : message}"  />
+        <input :type="type" v-model="model" :placeholder="placeholder" :class="{'!ring-red-500' : message}"  />
         <small class="error" v-if="message">{{ message }}</small>
     </div>
 </template>

@@ -14,9 +14,12 @@
     body {
         background: #0F0F0F;
         color: white;
+        @apply  h-full overflow-hidden
     }
 }
-
+#app{
+    @apply  h-full
+}
 @layer components {
     input[type="text"],
     input[type="email"],

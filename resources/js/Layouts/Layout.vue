@@ -5,7 +5,7 @@ import Dashboard from "@/Pages/Dashboard.vue";
 
 <template>
 
-    <div class="">
+    <div class="h-full">
         <header class="bg-stone-950 text-white max-w-4xl m-auto rounded-xl" >
             <nav class="flex items-center justify-between h-15 w-full mx-auto ">
 
@@ -26,7 +26,7 @@ import Dashboard from "@/Pages/Dashboard.vue";
 
             </nav>
         </header>
-        <main class="p-4">
+        <main class="p-4 h-full">
             <slot />
         </main>
     </div>
