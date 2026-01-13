@@ -43,17 +43,28 @@ class ImdbController extends Controller
     }
 
 
+    public function getTitle(Request $request)
+    {
+        $request->validate([
+            'id' => ['required', 'string'],
+        ]);
+        $response = Http::get("https://api.imdbapi.dev/titles/{$request->id}");
+        if ($response->successful()) {
+            $data = $response->json();
+            return Inertia::render('Dashboard', [
+                'movies' => $data,
+            ]);
+        }
 
-//    public function getTitle(Request $request){
-//        $request->validate([
-//            'id' => ['required', 'string'],
-//        ]);
-//        $title = $this->imdbService->getTitle($request->id);
-//        return response()->json($title);
-//    }
-//    public function getPopular(Request $request){
-//        $popular = $this->imdbService->getPopular();
-//        return response()->json($popular);
-//    }
+        if ($response->failed()) {
+            // Logowanie błędu
+            \Log::error('API request failed', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
+
+            return null;
+        }
+    }
 
 }
