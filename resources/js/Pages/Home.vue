@@ -1,40 +1,61 @@
 <script setup>
-
-import TextInput from "@/Components/TextInput.vue";
-import {useForm, router} from "@inertiajs/vue3";
+import { ref, onMounted } from 'vue'
+import { router } from '@inertiajs/vue3'
 import MovieCard from "@/Components/MovieCard.vue";
 
-const form = useForm({
-    country: '',
-});
-
-const submit = () => {
-    router.get(route('movies.popular'), {
-        country: form.country
-    },{
-        preserveState: true,
-        preserveScroll: true,
-        replace: true,
-        only: ['movies']
-    });
-}
 defineProps({
     movies: {
-        type:Array,
-        required: true,
+        type: Array,
         default: () => []
+    },
+    error: {
+        type: String,
+        default: null
+    },
+    initialLoad: {
+        type: Boolean,
+        default: false
     }
 })
+
+const loading = ref(false)
+const localMovies = ref([])
+
+onMounted(() => {
+    if (!initialLoad) {
+        loadMovies()
+    }
+})
+async function loadMovies() {
+    loading.value = true
+    try {
+        // Możesz też użyć Inertia do przeładowania strony
+        router.reload({
+            only: ['movies'],
+            preserveScroll: true
+        })
+    } finally {
+        loading.value = false
+    }
+}
 </script>
 
 <template>
     <Head :title="`| ${$page.component}`" />
 
-    <div class="title flex flex-row justify-center gap-3 items-center">
-        <h1 >
+    <div>
+        <h1 class="title ">
             MovieTracker
         </h1>
-        <img src="../../img/movietracker_white.svg" class="size-12 " alt="">
+    </div>
+    <h1>Popular Movies</h1>
+    <div v-if="error" class="error">
+        {{ error }}
+    </div>
+
+    <!-- Loader -->
+    <div v-if="loading" class="loading">
+        Loading movies...
     </div>
 
 </template>

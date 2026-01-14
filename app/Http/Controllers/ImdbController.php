@@ -28,7 +28,7 @@ class ImdbController extends Controller
         if ($response->successful()) {
             $data=json_encode([]);
             $data = $response->json();
-            return Inertia::render('Search', [
+            return Inertia::render('Movies/Search', [
                 'movies' => $data,
             ]);
         }
@@ -89,7 +89,7 @@ class ImdbController extends Controller
 
         if ($response->successful()) {
             $data = $response->json();
-            return Inertia::render('', [
+            return Inertia::render('Movies/MoviesPopular', [
                 'movies' => $data,
             ]);
         }
