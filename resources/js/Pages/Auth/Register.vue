@@ -22,9 +22,9 @@ const submit = () => {
     <Head title="| Register"/>
 
     <h1 class="title"> Register</h1>
-    <div class="w-2/4 mx-auto">
+    <div class="LogRegForm">
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" >
 
             <TextInput name="username" v-model="form.username" :message="form.errors.username"/>
             <TextInput name="email" type="email" v-model="form.email" :message="form.errors.email"/>

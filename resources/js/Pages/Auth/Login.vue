@@ -21,7 +21,7 @@ const submit = () => {
     <Head title="| Login"/>
 
     <h1 class="title"> Login</h1>
-    <div class="w-2/4 mx-auto">
+    <div class="LogRegForm">
 
         <form @submit.prevent="submit">
 

@@ -24,6 +24,42 @@
     height: 100%;
 }
 @layer components {
+
+    .layout{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+    }
+    header {
+        background: #020202;
+        box-shadow: 5px 5px 15px black;
+        max-width: 8%;
+    }
+    nav {
+        padding: 1rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+    nav div{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    main {
+        max-width: 100%;
+        width: 100%;
+        padding: 1rem;
+    }
+
+
+
     input[type="text"],
     input[type="email"],
     input[type="password"],
@@ -34,16 +70,14 @@
         height: 2.5rem;
         border-radius: 10px;
         background-color: #ffffffcc;
-        /*border: 0;*/
+
         color: black;
         box-shadow: 5px 5px 15px black;;
         transition: ease-in-out 0.5s;
         padding: 0.5rem;
         outline: 0;
    }
-    .layout{
-        width: 100%;
-    }
+
     input[type="text"]:focus,
     input[type="email"]:focus,
     input[type="password"]:focus,
@@ -86,25 +120,7 @@
         color: white;
         text-transform: capitalize;
     }
-    header {
-        background: white;
-        box-shadow: 5px 5px 15px black;
 
-    }
-    nav {
-        padding: 1rem;
-        max-width: 100%;
-        margin-inline: auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-    }
-    main {
-        max-width: 100%;
-        margin-inline: auto;
-        padding: 1rem;
-    }
     .primary-btn {
         width:100%;
         height: 2.5rem;
@@ -126,12 +142,14 @@
         color: white;
         transition: 0.2s ease-in-out;
         border-radius: 10px;
-        font-size: 0.9rem;
+        font-size: 1rem;
         padding-bottom: 10px;
         padding-top: 10px;
         padding-left: 10px;
         padding-right: 10px;
-
+        margin-bottom: 1rem;
+        width: 100%;
+        text-align: center;
     }
     .nav-link:hover{
         color: black;
@@ -147,8 +165,9 @@
         margin-block: 30px;
         text-align: center;
         font-size: 2.5rem;
-        font-weight: bold;
-
+        font-weight: 800;
+        letter-spacing: 5px;
+        text-transform: uppercase;
     }
     .error {
         color: red;
@@ -190,10 +209,10 @@
         align-items: center;
         overflow-y: auto;
         overflow-x:hidden ;
-        height: 70%;
-        width: 60%;
+        height: 80%;
+        width: 100%;
         margin: auto;
-        padding: 1%;
+        padding:0 10% 0 10%;
 
     }
     .movieCard{
@@ -212,7 +231,6 @@
     .errorInput{
         border: 1.5px solid red;
     }
-
 
     .movieCardImg{
         width: 135px;
@@ -249,5 +267,9 @@
         margin: auto;
         width: 10%;
         font-size: 1rem;
+    }
+    .LogRegForm{
+        width: 40%;
+        margin: auto;
     }
 }
