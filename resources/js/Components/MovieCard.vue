@@ -18,8 +18,10 @@ defineProps({
         required: true
     },
     img:{
-        type: Array
-    }
+        default: "",
+        type: String
+    },
+    message: String
 
 })
 
@@ -28,17 +30,18 @@ defineProps({
 <template>
     <div class="movieCard">
         <div class="movieCardBody">
-            <img class="movieCardImg" :src="img.url" alt="" >
+            <img class="movieCardImg" :src="img" alt="" >
             <div class="movieCardTitle">
-                <h1>Original title: {{ titleOriginal }} </h1>
-                <h1>Primary title: {{ titlePrimary }} </h1>
-                {{ date }}
+                <div class="movieCardText">Original title: <p class="movieTitle">{{ titleOriginal }}</p> </div>
+                <div class="movieCardText">Primary title: <p class="movieTitle">{{ titlePrimary }}</p> </div>
+                <div class="movieCardText">Release date:  <p class="movieDate">{{ date }}</p></div>
             </div>
         </div>
-        <button class="primary-btn movieCardShowBtn">
-            Show
-        </button>
-
+        <div class="movieCardBtn">
+            <button class="primary-btn movieCardShowBtn">
+                Show
+            </button>
+        </div>
     </div>
 </template>
 

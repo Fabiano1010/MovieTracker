@@ -3,7 +3,8 @@
 import TextInput from "@/Components/TextInput.vue";
 import {useForm, router} from "@inertiajs/vue3";
 import MovieCard from "@/Components/MovieCard.vue";
-
+import { ref } from 'vue';
+const errors = ref({});
 const form = useForm({
     title: '',
 });
@@ -15,14 +16,27 @@ const submit = () => {
         preserveState: true,
         preserveScroll: true,
         replace: true,
-        only: ['movies']
+        only: ['movies'],
+        onStart: () => {
+            form.processing = true;
+        },
+        onFinish: () => {
+            form.processing = false;
+        },
+        onSuccess: () => {
+            errors.value = {};
+        },
+        onError: (err) => {
+            errors.value = err;
+            form.reset('title');
+        }
     });
 }
 defineProps({
     movies: {
-        type:Array,
+        type: Object,
         required: true,
-        default: () => []
+        default: () => ({ titles: [] })
     }
 })
 
@@ -33,25 +47,29 @@ defineProps({
     </div>
 
     <div>
-        <form @submit.prevent="submit" class="flex flex-row justify-center space-x-10 items-center">
+        <form @submit.prevent="submit" class="movieForm">
 
-            <TextInput name="Search movies" v-model="form.title" :message="form.errors.title" placeholder="Title" class="w-80"/>
-            <div class="w-20 items-center">
-                <button class="primary-btn w-20 h-10">Search</button>
+            <TextInput name="Search movies" v-model="form.title" placeholder="Title" class="movieSearchInput" :message="errors.title"/>
+            <div class="movieSearchBtn">
+                <button class="primary-btn" :disabled="form.processing" >Search</button>
             </div>
         </form>
     </div>
 
-
-    <div class="movieCardContaier">
+    <div v-if="form.processing" class="loading">
+        Loading movies...
+    </div>
+    <div class="movieCardContaier" v-if="movies.titles">
         <MovieCard v-for="movie in movies.titles"
                    :id="movie.id"
                    :titleOriginal="movie.originalTitle"
                    :titlePrimary="movie.primaryTitle"
                    :date="movie.startYear"
-                   :img="movie.primaryImage"
+                   :img="movie.primaryImage?.url || ''"
         />
     </div>
+
+
 
 </template>
 
