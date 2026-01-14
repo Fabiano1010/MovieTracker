@@ -31,8 +31,8 @@ const submit = () => {
             <TextInput name="password" type="password" v-model="form.password" :message="form.errors.password"/>
             <TextInput name="confirm password" type="password" v-model="form.password_confirmation"/>
 
-            <div>
-                <p class="text-slate-200 mb-2">Already a user? <a :href="route('login')">Login</a></p>
+            <div >
+                <p style="margin-bottom: 1rem">Already a user? <a :href="route('login')">Login</a></p>
                 <button class="primary-btn" :disabled="form.processing">Register</button>
             </div>
 

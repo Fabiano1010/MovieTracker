@@ -28,12 +28,12 @@ const submit = () => {
 
             <TextInput name="email" type="email" v-model="form.email" :message="form.errors.email"/>
             <TextInput name="password" type="password" v-model="form.password" :message="form.errors.password"/>
-            <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center gap-2">
+            <div class="LogRegText">
+                <div class="checkboxDiv">
                     <input type="checkbox" v-model="form.remember" id="remember">
                     <label for="remember">Remember Me </label>
                 </div>
-                <p class="text-slate-200">Not a user? <a :href="route('register')">Register</a></p>
+                <p >Not a user? <a :href="route('register')">Register</a></p>
             </div>
             <div>
                 <button class="primary-btn" :disabled="form.processing">Login</button>
