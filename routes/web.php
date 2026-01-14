@@ -12,6 +12,7 @@ Route::inertia('/', 'Home')->name('home');
 Route::middleware('auth')->group(function () {
 
     Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
+    Route::inertia('/search', 'Search')->name('search');
 
     Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 

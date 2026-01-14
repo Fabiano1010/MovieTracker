@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use function Pest\Laravel\deleteJson;
 
 class ImdbController extends Controller
 {
@@ -25,8 +26,9 @@ class ImdbController extends Controller
         ]);
 
         if ($response->successful()) {
+            $data=json_encode([]);
             $data = $response->json();
-            return Inertia::render('Dashboard', [
+            return Inertia::render('Search', [
                 'movies' => $data,
             ]);
         }
@@ -51,7 +53,7 @@ class ImdbController extends Controller
         $response = Http::get("https://api.imdbapi.dev/titles/{$request->id}");
         if ($response->successful()) {
             $data = $response->json();
-            return Inertia::render('Dashboard', [
+            return Inertia::render('', [
                 'movies' => $data,
             ]);
         }
@@ -87,7 +89,7 @@ class ImdbController extends Controller
 
         if ($response->successful()) {
             $data = $response->json();
-            return Inertia::render('Dashboard', [
+            return Inertia::render('', [
                 'movies' => $data,
             ]);
         }

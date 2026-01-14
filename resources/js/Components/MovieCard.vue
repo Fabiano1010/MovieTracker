@@ -26,20 +26,17 @@ defineProps({
 </script>
 
 <template>
-    <div class="flex flex-row gap-10 rounded-3xl bg-amber-500 hover:bg-amber-100 hover:text-black text-white  m-3 transition ease-in-out duration-250">
-        <div class="bg-amber-800 w-15 p-3 rounded-bl-3xl rounded-tl-3xl">
-            <img :src="img.url" alt="" class="w-16 h-16 rounded-md">
+    <div class="movieCard">
+        <div class="movieCardBody">
+            <img class="movieCardImg" :src="img.url" alt="" >
+            <div class="movieCardTitle">
+                <h1>Original title: {{ titleOriginal }} </h1>
+                <h1>Primary title: {{ titlePrimary }} </h1>
+                {{ date }}
+            </div>
         </div>
-        <div class="flex flex-col">
-            <h1>Original title: {{ titleOriginal }} </h1>
-            <h1>Primary title: {{ titlePrimary }} </h1>
-        </div>
-
-        <div>
-            {{ date }}
-        </div>
-        <button class="">
-            Add
+        <button class="primary-btn movieCardShowBtn">
+            Show
         </button>
 
     </div>

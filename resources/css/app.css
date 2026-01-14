@@ -6,7 +6,7 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Instrument Sans', 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
@@ -41,6 +41,9 @@
         padding: 0.5rem;
         outline: 0;
    }
+    .layout{
+        width: 100%;
+    }
     input[type="text"]:focus,
     input[type="email"]:focus,
     input[type="password"]:focus,
@@ -84,14 +87,23 @@
         text-transform: capitalize;
     }
     header {
-        @apply bg-white shadow-md;
+        background: white;
+        box-shadow: 5px 5px 15px black;
+
     }
     nav {
+        padding: 1rem;
+        max-width: 100%;
+        margin-inline: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        @apply p-5 max-w-screen-lg mx-auto flex items-center justify-between;
     }
     main {
-        @apply max-w-screen-lg mx-auto;
+        max-width: 100%;
+        margin-inline: auto;
+        padding: 1rem;
     }
     .primary-btn {
         width:100%;
@@ -128,6 +140,9 @@
     .nav-link-current{
         background: #04622E;
     }
+    .nav-link-logout:hover{
+        background: #ea0000;
+    }
     .title {
         margin-block: 30px;
         text-align: center;
@@ -143,10 +158,40 @@
         color: #06B153;
         transition: ease-in-out 0.2s;
 
-        /*@apply text-orange-400 hover:text-orange-200 transition duration-100 ease-in-out*/
     }
     a:hover{
         color: #16DB65;
         text-shadow:  5px 5px 15px black;;
+    }
+    .movieCardContaier{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: auto;
+        height: 60%;
+    }
+    .movieCard{
+        display: flex;
+        margin: 10px 0 10px 0;
+        width: 60%;
+        height: 45%;
+        justify-content: space-between;
+    }
+
+    .movieCardImg{
+        width: 135px;
+        height: 180px;
+        border-radius: 10px;
+    }
+    .movieCardBody{
+        display: flex;
+        width: 50%;
+
+    }
+    .movieCardTitle{
+        margin-left: 5%;
+    }
+    .movieCardShowBtn{
+        width: 10%;
     }
 }
