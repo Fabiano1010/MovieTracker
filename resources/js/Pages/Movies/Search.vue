@@ -33,13 +33,16 @@ const submit = () => {
         }
     });
 }
-defineProps({
+const props = defineProps({
     movies: {
         type: Object,
         required: true,
         default: () => ({ titles: [] })
-    }
+    },
+
 })
+
+
 
 </script>
 <template>
@@ -60,9 +63,8 @@ defineProps({
     <div v-if="form.processing" class="loading">
         Loading movies...
     </div>
-    <div class="movieCardContaier" v-if="movies.titles">
+    <div class="movieCardContaier" v-if="props.movies">
         <MovieCard v-for="movie in movies.titles"
-
                    :id="movie.id"
                    :titleOriginal="movie.originalTitle  || ''"
                    :titlePrimary="movie.primaryTitle  || ''"

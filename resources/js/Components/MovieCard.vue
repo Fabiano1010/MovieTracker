@@ -1,7 +1,6 @@
 <script setup>
 import MovieComponent from "@/Components/MovieComponent.vue";
 defineProps({
-
     titleOriginal: {
         type: String,
         required: true
@@ -22,6 +21,7 @@ defineProps({
         default: "",
         type: String
     },
+
     message: String
 
 })
@@ -39,10 +39,10 @@ defineProps({
     <div class="movieCard">
         <div class="movieCardBody">
             <div class="movieCardImgDiv">
-                <img class="movieCardImg" :src="img" alt="" >
+                <img class="movieCardImg" :src="img" :alt="titleOriginal" >
             </div>
             <div class="movieCardTitle">
-                <div class="movieCardText">Original title: <p class="movieTitle">{{ itleOriginal }}</p> </div>
+                <div class="movieCardText">Original title: <p class="movieTitle">{{ titleOriginal }}</p> </div>
                 <div class="movieCardText">Primary title: <p class="movieTitle">{{ titlePrimary }}</p> </div>
                 <div class="movieCardText">Release date:  <p class="movieDate">{{ date }}</p></div>
             </div>
