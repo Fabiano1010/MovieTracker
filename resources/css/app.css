@@ -65,7 +65,7 @@
     input[type="password"],
     input[type="search"],
     input[type="tel"],
-    input[type="url"], textarea {
+    input[type="url"], textarea, select{
         width:100%;
         height: 2.5rem;
         border-radius: 10px;
@@ -83,7 +83,7 @@
     input[type="password"]:focus,
     input[type="search"]:focus,
     input[type="tel"]:focus,
-    input[type="url"]:focus, textarea:focus{
+    input[type="url"]:focus, textarea:focus, select:focus {
         background-color: #58EE94ff;
         color: black;
 
@@ -389,7 +389,8 @@
         font-size: 1.2rem;
     }
     .movieDetailImgDiv{
-        width: 50%;
+        width: 35%;
+        max-width: 40%;
         display: flex;
         flex-direction: column;
         gap: 2rem;
@@ -399,6 +400,7 @@
     }
     .movieDetailImg{
         width: 100%;
+        max-height: 75%;
         border-radius: 15px;
         filter: drop-shadow(5px 5px 15px black);
     }
@@ -409,7 +411,8 @@
     }
     .movieDetailsProps{
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        /*flex-wrap: wrap;*/
         gap: 1rem
     }
 
@@ -429,12 +432,32 @@
         font-weight: normal;
         margin-left: 1rem;
     }
+    /*input[type="range"]{*/
+    /*    appearance: none;*/
+    /*    border-radius: 100px;*/
+    /*    cursor: pointer;*/
+    /*    background: white;*/
+    /*    width: 100%;*/
+    /*    height: 16px;*/
+    /*}*/
 
-    input[type="range"], select{
-        /*width: 20%;*/
-    }
+    /*input[type="range"]::-moz-range-thumb, input[type="range"]::-webkit-slider-thumb {*/
+    /*    appearance: none;*/
+    /*    width: 16px;*/
+    /*    height: 16px;*/
+    /*    border: 2px solid black;*/
+    /*    border-radius: 100%;*/
+    /*    background: #058C42;*/
+    /*    box-shadow: none;*/
+    /*    transition: all 0.1s ease-in-out;*/
+    /*}*/
+    /*input[type="range"]:hover::-moz-range-thumb, input[type="range"]:hover::-webkit-slider-thumb{*/
+    /*    background: #16DB65;*/
+    /*}*/
+
+
     .detailsTextArea{
-        /*width: 20%;*/
+        height: 5%;
     }
     .movieDetailsForm button{
         width: 25%;
@@ -453,5 +476,10 @@
     }
     .btnSection{
         display: flex;
+    }
+    .movieDetailsPropsMore{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
     }
 }

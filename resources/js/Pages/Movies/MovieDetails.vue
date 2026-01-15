@@ -5,6 +5,7 @@ import { onMounted, onBeforeUnmount  } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
+
     movie: {
         type: Object,
         required: true,
@@ -14,24 +15,61 @@ const props = defineProps({
         type: String,
         default: null
     },
+    rangeValue: {
+        type: Number,
+        default: 0
+    },
+    auth: {
+        type: Object,
+        default: () => ({ user: null })
+    },
 
 
 })
+
 const form = useForm({
-    movieId: props.id,
+    userId: props.auth.user.id,
+    movieId: props.movie.id,
     status: {
         type: String,
         required: true
     },
-    rating: {
-        type: String,
-        required: true
-    },
-    comment: {
-        type: String,
-        default: ''
-    }
+    rating: 1,
+    comment: ''
 });
+
+const submit = () => {
+    router.post(route('movies.store'), {
+        user_id : form.userId,
+        movie_id : form.movieId,
+        status: form.status,
+        user_rating: form.rating,
+        comment: form.comment,
+
+    }, {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true,
+        only: ['movies'],
+        onStart: () => {
+            form.processing = true;
+        },
+        onFinish: () => {
+            form.processing = false;
+        },
+        onSuccess: () => {
+            form.movie_id = '';
+            form.status = 'to_watch';
+            form.user_rating = null;
+            form.comment = '';
+            errors.value = {};
+        },
+        onError: (err) => {
+            errors.value = err;
+            form.reset('title');
+        }
+    });
+}
 
 const handleKeydown = (event) => {
     if (event.key === 'Escape') {
@@ -68,68 +106,75 @@ onBeforeUnmount(() => {
         <div class="movieDetailImgDiv">
             <img :src="movie.primaryImage?.url || ''" :alt="movie.originalTitle" class="movieDetailImg">
             <div class="movieCardTitle titlePopular movieDetailTitle">
-                <div class="movieCardText ">Original title: <p class="movieTitle">{{ movie.originalTitle }}</p> </div>
-                <div class="movieCardText ">Primary title: <p class="movieTitle">{{ movie.primaryTitle }}</p> </div>
-                <div class="movieCardText ">Release date:  <p class="movieDate">{{ movie.startYear }}</p></div>
+                <div class="movieCardText " v-if="movie.originalTitle">Original title: <p class="movieTitle">{{ movie.originalTitle }}</p> </div>
+                <div class="movieCardText " v-if="movie.primaryTitle">Primary title: <p class="movieTitle">{{ movie.primaryTitle }}</p> </div>
+                <div class="movieCardText " v-if="movie.startYear">Release date:  <p class="movieDate">{{ movie.startYear }}</p></div>
             </div>
         </div>
 
         <div class="movieDetails">
             <div class="movieDetailsProps">
-                <div class="movieDetailPlot">
+                <div class="movieDetailPlot" v-if="movie.plot">
                     Plot:
                     <p>{{ movie.plot }}</p>
                 </div>
-                <div class="movieDetailGenres">
-                    Directors:
-                    <div class="movieDetailGenry" v-for="dir in movie.directors">
-                        &#x2022; {{ dir.displayName }}
+                <div class="movieDetailsPropsMore">
+                    <div class="movieDetailGenres" v-if="movie.directors">
+                        Directors:
+                        <div class="movieDetailGenry" v-for="dir in movie.directors">
+                            &#x2022; {{ dir.displayName }}
+                        </div>
                     </div>
-                </div>
-                <div class="movieDetailGenres">
-                    Writers:
-                    <div class="movieDetailGenry" v-for="wr in movie.writers">
-                        &#x2022; {{ wr.displayName }}
+                    <div class="movieDetailGenres" v-if="movie.writers">
+                        Writers:
+                        <div class="movieDetailGenry" v-for="wr in movie.writers">
+                            &#x2022; {{ wr.displayName }}
+                        </div>
                     </div>
-                </div>
-                <div class="movieDetailGenres">
-                    Stars:
-                    <div class="movieDetailGenry" v-for="st in movie.stars">
-                        &#x2022; {{ st.displayName }}
+                    <div class="movieDetailGenres" v-if="movie.stars">
+                        Stars:
+                        <div class="movieDetailGenry" v-for="st in movie.stars">
+                            &#x2022; {{ st.displayName }}
+                        </div>
                     </div>
-                </div>
 
-                <div class="movieDetailGenres">
-                    Genres:
-                    <div class="movieDetailGenry" v-for="gen in movie.genres">
-                        &#x2022; {{ gen }}
+                    <div class="movieDetailGenres" v-if="movie.genres">
+                        Genres:
+                        <div class="movieDetailGenry" v-for="gen in movie.genres">
+                            &#x2022; {{ gen }}
+                        </div>
                     </div>
-                </div>
-                <div class="movieDetailGenres">
-                    Time: {{ formatSecondsToTime(movie.runtimeSeconds) }}
+                    <div class="movieDetailGenres" v-if="movie.runtimeSeconds">
+                        Time: {{ formatSecondsToTime(movie.runtimeSeconds) }}
 
-                </div>
-                <div class="movieDetailGenres">
-                   <p>Rating: {{ movie.rating.aggregateRating }}/10</p>
-                    <p>Votes: {{ movie.rating.voteCount }}</p>
-                </div>
-                <div class="movieDetailGenres">
-                    <p>Metactic: {{ movie.metacritic.score }}</p>
-                    <p>Rewiews: {{ movie.metacritic.reviewCount }}</p>
+                    </div>
+                    <div class="movieDetailGenres" v-if="movie.rating">
+                       <p>Rating: {{ movie.rating.aggregateRating }}/10</p>
+                        <p>Votes: {{ movie.rating.voteCount }}</p>
+                    </div>
+                    <div class="movieDetailGenres" v-if="movie.metacritic">
+                        <p>Metactic: {{ movie.metacritic?.score }}</p>
+                        <p>Rewiews: {{ movie.metacritic.reviewCount }}</p>
+                    </div>
                 </div>
             </div>
             <div class="movieDetailsForm">
-                <form >
+                <form @submit.prevent="submit">
 
                     <select class="" v-model="form.status">
-                        <option>Want to wach</option>
-                        <option>In progress</option>
-                        <option>Finished</option>
+                        <option value="to_watch">Want to watch</option>
+                        <option value="in_progress">In progress</option>
+                        <option value="watched">Finished</option>
                     </select>
+
                     <input type="range" min="1" max="10" v-model="form.rating">
 
+                    <div class="rangeIndicator" >
+                       Your rating: {{ form.rating }} / 10
 
-                    <textarea class="detailsTextArea" v-model="form.comment" value=""></textarea>
+                    </div>
+
+                    <textarea class="detailsTextArea" v-model="form.comment" placeholder="Comment"></textarea>
                 <div class="btnSection">
                     <button class="primary-btn">Save</button>
                     <button class="primary-btn" type="reset">Reset</button>

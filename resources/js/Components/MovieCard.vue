@@ -1,5 +1,4 @@
 <script setup>
-import MovieComponent from "@/Components/MovieComponent.vue";
 import {router, useForm} from "@inertiajs/vue3";
 
 
@@ -24,7 +23,10 @@ const props = defineProps({
         default: "",
         type: String
     },
-
+    errors: {
+        type: String,
+        default: null
+    },
     message: String
 
 })
@@ -49,10 +51,11 @@ const submit = () => {
             form.processing = false;
         },
         onSuccess: () => {
-            errors.value = {};
+
+            props.errors.value = {};
         },
         onError: (err) => {
-            errors.value = err;
+            props.errors.value = err;
             form.reset('title');
         }
     });

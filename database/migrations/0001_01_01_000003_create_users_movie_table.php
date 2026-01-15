@@ -35,8 +35,9 @@ return new class extends Migration {
 
             $table->text('comment')->nullable();
 
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
 
-            $table->timestamp('added_at')->useCurrent();
 
 
             $table->unique(['user_id', 'movie_id']);
