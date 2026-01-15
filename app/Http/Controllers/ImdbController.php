@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -34,7 +34,6 @@ class ImdbController extends Controller
         }
 
         if ($response->failed()) {
-            // Logowanie błędu
             \Log::error('API request failed', [
                 'status' => $response->status(),
                 'body' => $response->body()
@@ -69,75 +68,77 @@ class ImdbController extends Controller
         }
     }
 
-    public function getPopularMovies(Request $request){
+    public function getPopular(Request $request)
+    {
         $request->validate([
-            'country' => ['string'],
+            'country' => ['nullable', 'string', 'size:2'],
         ]);
-        if($request->country == ''){
-            $response = Http::get("https://api.imdbapi.dev/titles",[
-                'types'=>'MOVIE',
-                'sortBy'=>'SORT_BY_POPULARITY'
-            ]);
 
-        }else{
-            $response = Http::get("https://api.imdbapi.dev/titles",[
-                'types'=>'MOVIE',
-                'sortBy'=>'SORT_BY_POPULARITY',
-                'countryCodes'=>$request->country
-            ]);
-        }
+        $country = $request->country ?: '';
+        $cacheKey = 'popular_movies_' . ($country ?: 'global');
 
-        if ($response->successful()) {
-            $data = $response->json();
-            return Inertia::render('Movies/MoviesPopular', [
+
+        if (Cache::has($cacheKey)) {
+            $data = Cache::get($cacheKey);
+            \Log::info('Movies have been taken from cache', ['country' => $country]);
+
+            return Inertia::render('Home', [
                 'movies' => $data,
+                'from_cache' => true,
+                'cache_expires' => now()->addHour()->diffForHumans()
             ]);
         }
 
-        if ($response->failed()) {
-            // Logowanie błędu
+        try {
+            $params = [
+                'types' => ['MOVIE', 'TV_SERIES', 'TV_MINI_SERIES'],
+                'sortBy' => 'SORT_BY_POPULARITY',
+            ];
+
+            if ($country) {
+                $params['countryCodes'] = $country;
+            }
+
+            $response = Http::timeout(30)->get("https://api.imdbapi.dev/titles", $params);
+
+            if ($response->successful()) {
+                $data = $response->json();
+
+
+                Cache::put($cacheKey, $data, 3600);
+                \Log::info('Movies saved to cache', [
+                    'country' => $country,
+                    'count' => count($data['titles'] ?? [])
+                ]);
+
+                return Inertia::render('Home', [
+                    'movies' => $data,
+                    'from_cache' => false
+                ]);
+            }
+
+
             \Log::error('API request failed', [
                 'status' => $response->status(),
-                'body' => $response->body()
+                'country' => $country
             ]);
 
-            return null;
-        }
-    }
-    public function getPopularTvSeries(Request $request){
-        $request->validate([
-            'country' => ['string'],
-        ]);
-        if($request->country == ''){
-            $response = Http::get("https://api.imdbapi.dev/titles",[
-                'types'=>'TV_SERIES',
-                'sortBy'=>'SORT_BY_POPULARITY'
+            return Inertia::render('Home', [
+                'movies' => ['titles' => []],
+                'error' => 'Failed to load movies from API.'
             ]);
 
-        }else{
-            $response = Http::get("https://api.imdbapi.dev/titles",[
-                'types'=>'TV_SERIES',
-                'sortBy'=>'SORT_BY_POPULARITY',
-                'countryCodes'=>$request->country
+        } catch (\Exception $e) {
+            \Log::error('Exception in getPopular: ' . $e->getMessage(), [
+                'country' => $country
+            ]);
+
+            return Inertia::render('Home', [
+                'movies' => ['titles' => []],
+                'error' => 'Connection error. Please try again.'
             ]);
         }
 
-        if ($response->successful()) {
-            $data = $response->json();
-            return Inertia::render('Dashboard', [
-                'movies' => $data,
-            ]);
-        }
-
-        if ($response->failed()) {
-            // Logowanie błędu
-            \Log::error('API request failed', [
-                'status' => $response->status(),
-                'body' => $response->body()
-            ]);
-
-            return null;
-        }
     }
 }
 

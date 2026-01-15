@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::inertia('/', 'Home')->name('home');
+Route::get('/', [ImdbController::class, 'getPopular'])->name('home');
 
 
 Route::middleware('auth')->group(function () {
@@ -21,8 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('movies')->group(function () {
         Route::get('/search', [ImdbController::class, 'search'])->name('movies.search');
         Route::get('/title', [ImdbController::class, 'getTitle'])->name('movies.title');;
-        Route::get('/popular', [ImdbController::class, 'getPopularMovies'])->name('movies.popularmovies');
-        Route::get('/popular', [ImdbController::class, 'getPopularTvSeries'])->name('movies.populartvseries');
+        Route::get('/popular', [ImdbController::class, 'getPopular'])->name('movies.popular');
+
     });
 
 });
@@ -34,10 +34,7 @@ Route::middleware('guest')->group(function () {
 
     Route::inertia('/login', 'Auth/Login')->name('login');
     Route::post('/login',[AuthController::class,'Login']);
-    Route::prefix('movies')->group(function () {
-        Route::get('/popular', [ImdbController::class, 'getPopularMovies'])->name('movies.popularmovies');
-        Route::get('/popular', [ImdbController::class, 'getPopularTvSeries'])->name('movies.populartvseries');
-    });
+
 });
 
 

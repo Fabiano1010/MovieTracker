@@ -162,7 +162,7 @@
         background: #ea0000;
     }
     .title {
-        margin-bottom: 30px;
+        margin-bottom: 1rem;
         text-align: center;
         font-size: 2.5rem;
         font-weight: 800;
@@ -243,20 +243,23 @@
     }
 
     .movieCardImg{
-        width: 135px;
         height: 180px;
         border-radius: 10px;
+    }
+    .movieCardImgDiv{
+        height: 180px;
+        width: 150px;
     }
     .movieCardBody{
         display: flex;
         width: 85%;
-
+        gap:10%;
     }
     .movieCardBtn{
         width: 15%;
     }
     .movieCardTitle{
-        margin-left: 5%;
+
         width: 100%;
     }
     .movieCardShowBtn{
@@ -292,5 +295,37 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 1rem;
+    }
+    .subtitle{
+        width: 100%;
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-transform: capitalize;
+        text-align: center;
+    }
+    .moviePopularContaier{
+
+
+    }
+    .movieCardPopular{
+        width: 60%;
+        height: 90%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .movieCardImgDivPopular{
+        height: 70%;
+    }
+    .movieCardImgPopular{
+        height: 100%;
+        border-radius: 15px;
+        filter: drop-shadow(5px 5px 15px black);
+        transition: ease-in-out 0.25s;
+    }
+    .movieCardImgPopular:hover{
+
+        filter: drop-shadow(0px 0px 25px #16DB65);
     }
 }

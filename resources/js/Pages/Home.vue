@@ -1,65 +1,80 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { router } from '@inertiajs/vue3'
-import MovieCard from "@/Components/MovieCard.vue";
+import { onMounted, ref } from "vue";
+import { router } from "@inertiajs/vue3";
+import MoviesPopular from "@/Components/MoviesPopular.vue";
 
-defineProps({
-    movies: {
-        type: Array,
-        default: () => []
+const props = defineProps({
+    movies:{
+        type: Object,
+        default: () => ({ titles:[] })
     },
     error: {
         type: String,
         default: null
-    },
-    initialLoad: {
-        type: Boolean,
-        default: false
     }
+
 })
 
 const loading = ref(false)
-const localMovies = ref([])
+const selectedCountry = ref('')
+
 
 onMounted(() => {
-    if (!initialLoad) {
-        loadMovies()
+    if(!props.movies.titles || props.movies.titles.length===0){
+        fetchPopular()
     }
 })
-async function loadMovies() {
+const fetchPopular = (country = '') => {
     loading.value = true
-    try {
-        // Możesz też użyć Inertia do przeładowania strony
-        router.reload({
-            only: ['movies'],
-            preserveScroll: true
-        })
-    } finally {
-        loading.value = false
-    }
+
+    router.get(route('movies.popular'), {
+        country: country
+    }, {
+        preserveState: true,
+        preserveScroll: true,
+        onSuccess: () => {
+            loading.value = false
+        },
+        onError: () => {
+            loading.value = false
+        },
+        onFinish: () => {
+            loading.value = false
+        }
+    })
 }
+
 </script>
 
 <template>
     <Head :title="`| ${$page.component}`" />
 
     <div>
-        <h1 class="title ">
+        <h1 class="title">
             MovieTracker
         </h1>
     </div>
-    <h1>Popular Movies</h1>
+    <h1 class="subtitle">Popular now</h1>
     <div v-if="error" class="error">
         {{ error }}
     </div>
 
-    <!-- Loader -->
+
     <div v-if="loading" class="loading">
-        Loading movies...
+        Loading popular now...
     </div>
+    <div class="moviePopularContaier" v-if="movies.titles && movies.titles.length > 0">
+        <MoviesPopular v-for="movie in movies.titles"
+            :key="movie.id"
+            :id="movie.id"
+            :titleOriginal="movie.originalTitle"
+            :titlePrimary="movie.primaryTitle"
+            :date="movie.startYear"
+            :img="movie.primaryImage?.url || ''"
+        />
+    </div>
+
+
 
 </template>
 
-<style scoped>
-
-</style>

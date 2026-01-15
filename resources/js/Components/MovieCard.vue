@@ -30,7 +30,9 @@ defineProps({
 <template>
     <div class="movieCard">
         <div class="movieCardBody">
-            <img class="movieCardImg" :src="img" alt="" >
+            <div class="movieCardImgDiv">
+                <img class="movieCardImg" :src="img" alt="" >
+            </div>
             <div class="movieCardTitle">
                 <div class="movieCardText">Original title: <p class="movieTitle">{{ titleOriginal }}</p> </div>
                 <div class="movieCardText">Primary title: <p class="movieTitle">{{ titlePrimary }}</p> </div>
