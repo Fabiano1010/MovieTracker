@@ -3,6 +3,7 @@
 import TextInput from "@/Components/TextInput.vue";
 import {useForm, router} from "@inertiajs/vue3";
 import MovieCard from "@/Components/MovieCard.vue";
+import MovieComponent from "@/Components/MovieComponent.vue";
 import { ref } from 'vue';
 const errors = ref({});
 const form = useForm({
@@ -61,6 +62,7 @@ defineProps({
     </div>
     <div class="movieCardContaier" v-if="movies.titles">
         <MovieCard v-for="movie in movies.titles"
+
                    :id="movie.id"
                    :titleOriginal="movie.originalTitle  || ''"
                    :titlePrimary="movie.primaryTitle  || ''"

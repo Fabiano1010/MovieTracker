@@ -1,6 +1,7 @@
 <script setup>
-
+import MovieComponent from "@/Components/MovieComponent.vue";
 defineProps({
+
     titleOriginal: {
         type: String,
         required: true
@@ -24,6 +25,13 @@ defineProps({
     message: String
 
 })
+//
+// const isPopUpOpen = ref(false)
+// const selectedMovie = ref(null)
+// const openMovieModalSimple = (movie) => {
+//     selectedMovie.value = movie
+//     isPopUpOpen.value = true
+// }
 
 </script>
 
@@ -34,7 +42,7 @@ defineProps({
                 <img class="movieCardImg" :src="img" alt="" >
             </div>
             <div class="movieCardTitle">
-                <div class="movieCardText">Original title: <p class="movieTitle">{{ titleOriginal }}</p> </div>
+                <div class="movieCardText">Original title: <p class="movieTitle">{{ itleOriginal }}</p> </div>
                 <div class="movieCardText">Primary title: <p class="movieTitle">{{ titlePrimary }}</p> </div>
                 <div class="movieCardText">Release date:  <p class="movieDate">{{ date }}</p></div>
             </div>
