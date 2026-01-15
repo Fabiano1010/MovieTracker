@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import MoviesPopular from "@/Components/MoviesPopular.vue";
-
+import PopularMovieSlider from "@/Components/PopularMovieSlider.vue";
 const props = defineProps({
     movies:{
         type: Object,
@@ -63,16 +63,7 @@ const fetchPopular = (country = '') => {
     <div v-if="loading" class="loading">
         Loading popular now...
     </div>
-    <div class="moviePopularContaier" v-if="movies.titles && movies.titles.length > 0">
-        <MoviesPopular v-for="movie in movies.titles"
-            :key="movie.id"
-            :id="movie.id"
-            :titleOriginal="movie.originalTitle"
-            :titlePrimary="movie.primaryTitle"
-            :date="movie.startYear"
-            :img="movie.primaryImage?.url || ''"
-        />
-    </div>
+    <PopularMovieSlider if="movies.titles && movies.titles.length > 0" :movies="movies" :error="error" />
 
 
 

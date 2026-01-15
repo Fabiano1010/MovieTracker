@@ -305,27 +305,36 @@
         text-align: center;
     }
     .moviePopularContaier{
-
-
+        display: flex;
+        justify-content: center;
+        height: 95%;
+        gap: 2rem;
     }
     .movieCardPopular{
-        width: 60%;
-        height: 90%;
+        background: #07742D;
+        background: linear-gradient(180deg, rgba(7, 116, 45, 1) 0%, rgba(7, 116, 45, 0) 95%, rgba(7, 116, 45, 0) 100%);
+        border-radius: 15px;
+        width: auto;
+        height: 95%;
         display: flex;
         flex-direction: column;
+        padding: 0.5rem;
     }
 
     .movieCardImgDivPopular{
-        height: 70%;
+        height: 80%;
     }
     .movieCardImgPopular{
         height: 100%;
         border-radius: 15px;
-        filter: drop-shadow(5px 5px 15px black);
+        filter: drop-shadow(0px 0px 15px black);
         transition: ease-in-out 0.25s;
     }
     .movieCardImgPopular:hover{
 
         filter: drop-shadow(0px 0px 25px #16DB65);
+    }
+    .titlePopular{
+        font-size: 1rem;
     }
 }

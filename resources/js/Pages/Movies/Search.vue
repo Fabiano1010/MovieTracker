@@ -62,9 +62,9 @@ defineProps({
     <div class="movieCardContaier" v-if="movies.titles">
         <MovieCard v-for="movie in movies.titles"
                    :id="movie.id"
-                   :titleOriginal="movie.originalTitle"
-                   :titlePrimary="movie.primaryTitle"
-                   :date="movie.startYear"
+                   :titleOriginal="movie.originalTitle  || ''"
+                   :titlePrimary="movie.primaryTitle  || ''"
+                   :date="movie.startYear  || ''"
                    :img="movie.primaryImage?.url || ''"
         />
     </div>

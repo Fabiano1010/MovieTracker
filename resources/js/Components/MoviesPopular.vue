@@ -32,9 +32,9 @@ defineProps({
                 <img class="movieCardImgPopular" :src="img" alt="" >
             </div>
             <div class="movieCardTitle">
-                <div class="movieCardText">Original title: <span class="movieTitle">{{ titleOriginal }}</span> </div>
-                <div class="movieCardText">Primary title: <span class="movieTitle">{{ titlePrimary }}</span> </div>
-                <div class="movieCardText">Release date:  <span class="movieDate">{{ date }}</span></div>
+                <div class="movieCardText titlePopular">Original title: <span class="movieTitle">{{ titleOriginal }}</span> </div>
+                <div class="movieCardText titlePopular">Primary title: <span class="movieTitle">{{ titlePrimary }}</span> </div>
+                <div class="movieCardText titlePopular">Release date:  <span class="movieDate">{{ date }}</span></div>
             </div>
     </div>
 
