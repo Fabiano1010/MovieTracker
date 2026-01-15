@@ -1,6 +1,9 @@
 <script setup>
 import MovieComponent from "@/Components/MovieComponent.vue";
-defineProps({
+import {router, useForm} from "@inertiajs/vue3";
+
+
+const props = defineProps({
     titleOriginal: {
         type: String,
         required: true
@@ -25,13 +28,35 @@ defineProps({
     message: String
 
 })
-//
-// const isPopUpOpen = ref(false)
-// const selectedMovie = ref(null)
-// const openMovieModalSimple = (movie) => {
-//     selectedMovie.value = movie
-//     isPopUpOpen.value = true
-// }
+console.log(props.searching)
+const form = useForm({
+    movieId: props.id,
+    movieSearched: props.searching
+});
+
+const submit = () => {
+    router.get(route('movies.title'), {
+        id: form.movieId
+    }, {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true,
+        only: ['movies'],
+        onStart: () => {
+            form.processing = true;
+        },
+        onFinish: () => {
+            form.processing = false;
+        },
+        onSuccess: () => {
+            errors.value = {};
+        },
+        onError: (err) => {
+            errors.value = err;
+            form.reset('title');
+        }
+    });
+}
 
 </script>
 
@@ -48,9 +73,11 @@ defineProps({
             </div>
         </div>
         <div class="movieCardBtn">
-            <button class="primary-btn movieCardShowBtn">
-                Show
-            </button>
+            <form @submit.prevent="submit">
+                <button class="primary-btn movieCardShowBtn" :disabled="form.processing">
+                    Show
+                </button>
+            </form>
         </div>
     </div>
 </template>

@@ -52,8 +52,8 @@ class ImdbController extends Controller
         $response = Http::get("https://api.imdbapi.dev/titles/{$request->id}");
         if ($response->successful()) {
             $data = $response->json();
-            return Inertia::render('', [
-                'movies' => $data,
+            return Inertia::render('Movies/MovieDetails', [
+                'movie' => $data,
             ]);
         }
 

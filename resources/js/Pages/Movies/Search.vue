@@ -70,6 +70,7 @@ const props = defineProps({
                    :titlePrimary="movie.primaryTitle  || ''"
                    :date="movie.startYear  || ''"
                    :img="movie.primaryImage?.url || ''"
+
         />
     </div>
 
