@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { router } from "@inertiajs/vue3";
-import MoviesPopular from "@/Components/MoviesPopular.vue";
 import PopularMovieSlider from "@/Components/PopularMovieSlider.vue";
 const props = defineProps({
     movies:{
@@ -12,7 +11,6 @@ const props = defineProps({
         type: String,
         default: null
     }
-
 })
 
 const loading = ref(false)

@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/user-movies', [UserMovieController::class, 'index'])
             ->name('movies.index');
+        Route::get('/user-movies', [UserMovieController::class, ' show'])
+            ->name('movies.show');
         Route::post('/user-movies', [UserMovieController::class, 'store'])
             ->name('movies.store');
 

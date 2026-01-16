@@ -1,6 +1,5 @@
 <script setup>
 
-import TextInput from "@/Components/TextInput.vue";
 
 import { onMounted, onBeforeUnmount  } from 'vue';
 import { router, useForm, usePage} from '@inertiajs/vue3';

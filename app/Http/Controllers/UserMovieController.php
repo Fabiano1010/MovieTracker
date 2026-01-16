@@ -26,13 +26,11 @@ class UserMovieController extends Controller
                     $query->where('status',$status);
                 }
             }
-
             $sortBy=$request->input('sort_by', 'added_at');
             $sortOrder=$request->input('sort_order', 'desc');
             $query->orderBy($sortBy, $sortOrder);
             $perPage = $request->input('per_page', 5);
             $movies = $query->paginate($perPage);
-
 
             return response()->json([
                 'success' => true,
@@ -129,7 +127,7 @@ class UserMovieController extends Controller
             ]);
 
             if ($validator->fails()) {
-//                return Inertia::flash('error', 'Input validation failed.')->back();
+
                 return back()->withErrors($validator)->withInput();
 
             }

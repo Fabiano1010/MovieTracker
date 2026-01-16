@@ -3,7 +3,7 @@
 import TextInput from "@/Components/TextInput.vue";
 import {useForm, router} from "@inertiajs/vue3";
 import MovieCard from "@/Components/MovieCard.vue";
-import MovieComponent from "@/Components/MovieComponent.vue";
+
 import { ref } from 'vue';
 const errors = ref({});
 const form = useForm({
