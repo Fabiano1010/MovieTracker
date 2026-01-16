@@ -463,12 +463,14 @@
     .detailsMessage{
         text-align: center;
         font-weight: bolder;
-        color: green;
+        color: #16DB65;
         width: 100%;
         font-size: 1.5rem;
+        filter: drop-shadow(0px 0px 10px #16DB65);
     }
     .error {
         color: red;
         margin-top: 10px;
+        filter: drop-shadow(0px 0px 10px red);
     }
 }

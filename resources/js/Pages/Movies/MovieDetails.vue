@@ -171,7 +171,7 @@ onBeforeUnmount(() => {
             </div>
             <div class="movieDetailsForm">
                 <div v-if="page.flash.success" class="detailsMessage">
-                    {{ page.flash.succsess }}
+                    {{ page.flash.success }}
                 </div>
                 <div v-if="page.flash.error" class="detailsMessage error ">
                     {{ page.flash.error }}
