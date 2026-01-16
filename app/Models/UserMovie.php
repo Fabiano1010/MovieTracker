@@ -17,10 +17,18 @@ class UserMovie extends Model
         'status',
         'user_rating',
         'comment',
+        'primary_img',
+        'primary_title',
+        'original_title',
+        'start_year',
+        'is_favourite'
     ];
+
     protected $casts = [
-        'user_id' => 'integer',
-        'added_at' => 'datetime',
+        'user_rating' => 'integer',
+        'start_year' => 'integer',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
     ];
 
     public function user(){

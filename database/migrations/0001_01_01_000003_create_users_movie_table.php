@@ -21,7 +21,10 @@ return new class extends Migration {
 
 
             $table->string('movie_id', 20);
-
+            $table->string('primary_img', 511)->default('')->nullable();
+            $table->string('primary_title', 255)->nullable();
+            $table->string('original_title', 255)->nullable();
+            $table->year('start_year')->nullable();
 
             $table->enum('status', ['to_watch', 'watched', 'in_progress'])
                 ->default('to_watch');
@@ -34,8 +37,9 @@ return new class extends Migration {
 
 
             $table->text('comment')->nullable();
+            $table->boolean('is_favourite')->nullable();
 
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('updated_at');
             $table->timestamp('created_at')->useCurrent();
 
 
@@ -45,7 +49,13 @@ return new class extends Migration {
 
             $table->index('status');
             $table->index('user_rating');
-            $table->index('added_at');
+
+            $table->index('created_at');
+
+
+            $table->index('primary_title');
+            $table->index('start_year');
+            $table->index('is_favourite');
         });
     }
 

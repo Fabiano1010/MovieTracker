@@ -33,12 +33,12 @@ class UserMovieController extends Controller
             $perPage = $request->input('per_page', 5);
             $movies = $query->paginate($perPage);
 
-            return;
-//            return response()->json([
-//                'success' => true,
-//                'data' => $movies,
-//                'message' => 'Movies retrieved successfully.'
-//            ]);
+
+            return response()->json([
+                'success' => true,
+                'data' => $movies,
+                'message' => 'Movies retrieved successfully.'
+            ]);
         }catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -76,7 +76,6 @@ class UserMovieController extends Controller
         }
     }
 
-
     public function getByMovieId($movieId): JsonResponse
     {
         try {
@@ -112,19 +111,26 @@ class UserMovieController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'movie_id' => 'required|string|max:20',
+                'primary_img'=> 'string|nullable',
+                'primary_title'=> 'string|nullable',
+                'original_title'=> 'string|nullable',
+                'start_year' => 'nullable|integer|min:1900|max:' . date('Y'),
                 'status' => 'sometimes|in:to_watch,watched,in_progress',
                 'user_rating' => 'sometimes|integer|min:0|max:10|nullable',
                 'comment' => 'sometimes|string|max:1000|nullable',
+                'is_favourite'=> 'boolean',
             ], [
                 'movie_id.required' => 'Movie id is required.',
                 'movie_id.max' => 'Movie id is too long.',
-                'status.in' => 'Status must be: to_watch, watched or in_progress',
+                'status.in' => 'Incorrect status. Choose status.',
                 'user_rating.min' => 'Rating has to be in range: 0-10',
                 'user_rating.max' => 'Rating has to be in range: 0-10',
+                'is_favourite.boolean' => 'Favourite must be true or false.',
             ]);
 
             if ($validator->fails()) {
-                return Inertia::flash('error', 'Input validation failed.')->back();
+//                return Inertia::flash('error', 'Input validation failed.')->back();
+                return back()->withErrors($validator)->withInput();
 
             }
 
@@ -138,14 +144,22 @@ class UserMovieController extends Controller
             if ($existingMovie) {
                 return Inertia::flash('error', 'This movie already is in collection.')->back();
             }
+            $startYear = $request->start_year
+                ? (int) $request->start_year
+                : null;
 
 
             $userMovie = UserMovie::create([
-                'user_id' => $user->id,
+                'user_id' => auth()->id(),
                 'movie_id' => $request->movie_id,
-                'status' => $request->status ?? 'to_watch',
+                'primary_img' => $request->primary_img,
+                'primary_title' => $request->primary_title,
+                'original_title' => $request->original_title,
+                'start_year' => $startYear,
+                'status' => $request->status,
                 'user_rating' => $request->user_rating,
                 'comment' => $request->comment,
+                'is_favourite' => $request->is_favourite ? 1 : 0
             ]);
             return Inertia::flash('success', 'Movie added successfully.')->back();
 

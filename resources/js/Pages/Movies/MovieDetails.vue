@@ -36,16 +36,27 @@ const form = useForm({
     },
     rating: 1,
     comment: '',
+    fav: false,
+    primary_img: props.movie.primaryImage?.url || '',
+    primary_title: props.movie.originalTitle,
+    original_title: props.movie.primaryTitle,
+    start_year: props.movie.startYear || null,
 });
 
 const submit = () => {
+
+
     router.post(route('movies.store'), {
         user_id : form.userId,
         movie_id : form.movieId,
+        primary_img: form.primary_img,
+        primary_title: form.primary_title,
+        original_title: form.original_title,
+        start_year: form.start_year,
         status: form.status,
         user_rating: form.rating,
         comment: form.comment,
-
+        is_favourite: form.fav
     }, {
         preserveState: true,
         preserveScroll: true,
@@ -60,9 +71,8 @@ const submit = () => {
             props.message = message
         },
         onSuccess: () => {
-            form.movie_id = '';
             form.status = 'to_watch';
-            form.user_rating = null;
+            form.user_rating = 1;
             form.comment = '';
             props.errors = {};
 
@@ -176,6 +186,9 @@ onBeforeUnmount(() => {
                 <div v-if="page.flash.error" class="detailsMessage error ">
                     {{ page.flash.error }}
                 </div>
+                <div v-if="$page.props.errors" class="detailsMessage error ">
+                    {{ $page.props.errors.status }}
+                </div>
                 <form @submit.prevent="submit">
 
                     <select class="" v-model="form.status">
@@ -188,9 +201,11 @@ onBeforeUnmount(() => {
 
                     <div class="rangeIndicator" >
                        Your rating: {{ form.rating }} / 10
-
                     </div>
-
+                    <div class="checkboxDiv">
+                        <input type="checkbox" v-model="form.fav" id="remember" >
+                        <label for="remember">Favourite movie </label>
+                    </div>
                     <textarea class="detailsTextArea" v-model="form.comment" placeholder="Comment"></textarea>
                 <div class="btnSection">
                     <button class="primary-btn">Save</button>
