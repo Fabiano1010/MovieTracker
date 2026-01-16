@@ -58,7 +58,6 @@ class ImdbController extends Controller
         }
 
         if ($response->failed()) {
-            // Logowanie błędu
             \Log::error('API request failed', [
                 'status' => $response->status(),
                 'body' => $response->body()
