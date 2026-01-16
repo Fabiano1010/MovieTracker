@@ -108,7 +108,7 @@
         content: "";
         position: absolute;
         left: 4px;
-        top: 0px;
+        top: 0;
         width: 6px;
         height: 12px;
         border-width: 0 3px 3px 0;
@@ -148,10 +148,7 @@
         transition: 0.2s ease-in-out;
         border-radius: 10px;
         font-size: 1rem;
-        padding-bottom: 10px;
-        padding-top: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding: 10px;
         margin-bottom: 1rem;
         width: 100%;
         text-align: center;
@@ -204,7 +201,7 @@
         width: 15%;
         margin-left: 1rem;
     }
-    .movieCardContaier{
+    .movieCardContainer{
 
         display: flex;
         flex-direction: column;
@@ -241,7 +238,7 @@
     /*}*/
 
     .errorInput{
-        border: 1.5px solid red;
+        border: 1px solid red;
     }
 
     .movieCardImg{
@@ -306,7 +303,7 @@
         text-transform: capitalize;
         text-align: center;
     }
-    .moviePopularContaier{
+    .moviePopularContainer{
         /*display: flex;*/
         /*justify-content: center;*/
         height: 95%;
