@@ -63,7 +63,7 @@ const props = defineProps({
     <div v-if="form.processing" class="loading">
         Loading movies...
     </div>
-    <div class="movieCardContaier" v-if="props.movies">
+    <div class="movieCardContainer" v-if="props.movies">
         <MovieCard v-for="movie in movies.titles"
                    :id="movie.id"
                    :titleOriginal="movie.originalTitle  || ''"
