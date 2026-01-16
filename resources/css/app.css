@@ -386,7 +386,7 @@
         flex-direction: row;
         padding: 2rem;
         gap: 2rem;
-        font-size: 1.2rem;
+        font-size: 1.05rem;
     }
     .movieDetailImgDiv{
         width: 35%;
@@ -407,7 +407,7 @@
     .movieDetails{
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
     }
     .movieDetailsProps{
         display: flex;
