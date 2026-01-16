@@ -1,8 +1,11 @@
 <script setup>
+
 import TextInput from "@/Components/TextInput.vue";
 
 import { onMounted, onBeforeUnmount  } from 'vue';
-import { router, useForm } from '@inertiajs/vue3';
+import { router, useForm, usePage} from '@inertiajs/vue3';
+
+const page = usePage();
 
 const props = defineProps({
 
@@ -15,14 +18,11 @@ const props = defineProps({
         type: String,
         default: null
     },
-    rangeValue: {
-        type: Number,
-        default: 0
-    },
     auth: {
         type: Object,
         default: () => ({ user: null })
     },
+    message: String,
 
 
 })
@@ -35,7 +35,7 @@ const form = useForm({
         required: true
     },
     rating: 1,
-    comment: ''
+    comment: '',
 });
 
 const submit = () => {
@@ -50,22 +50,25 @@ const submit = () => {
         preserveState: true,
         preserveScroll: true,
         replace: true,
-        only: ['movies'],
         onStart: () => {
             form.processing = true;
         },
         onFinish: () => {
             form.processing = false;
         },
+        onFlash: ({ message }) => {
+            props.message = message
+        },
         onSuccess: () => {
             form.movie_id = '';
             form.status = 'to_watch';
             form.user_rating = null;
             form.comment = '';
-            errors.value = {};
+            props.errors = {};
+
         },
         onError: (err) => {
-            errors.value = err;
+            props.errors.value = err;
             form.reset('title');
         }
     });
@@ -88,11 +91,19 @@ function formatSecondsToTime(seconds) {
 
     return `${formatNumber(hrs)}:${formatNumber(mins)}:${formatNumber(secs)}`
 }
+const clearFlash = () => {
 
+    router.reload({
+        only: [],
+        preserveScroll: true,
+        preserveState: true,
+    })
+}
 
 onMounted(() => {
 
     document.addEventListener('keydown', handleKeydown)
+
 })
 
 onBeforeUnmount(() => {
@@ -159,6 +170,12 @@ onBeforeUnmount(() => {
                 </div>
             </div>
             <div class="movieDetailsForm">
+                <div v-if="page.flash.success" class="detailsMessage">
+                    {{ page.flash.succsess }}
+                </div>
+                <div v-if="page.flash.error" class="detailsMessage error ">
+                    {{ page.flash.error }}
+                </div>
                 <form @submit.prevent="submit">
 
                     <select class="" v-model="form.status">
@@ -177,10 +194,15 @@ onBeforeUnmount(() => {
                     <textarea class="detailsTextArea" v-model="form.comment" placeholder="Comment"></textarea>
                 <div class="btnSection">
                     <button class="primary-btn">Save</button>
-                    <button class="primary-btn" type="reset">Reset</button>
+                    <button class="primary-btn" type="reset" @click="clearFlash">Reset</button>
                 </div>
 
                 </form>
+                <div>
+
+
+                </div>
+
             </div>
         </div>
     </div>

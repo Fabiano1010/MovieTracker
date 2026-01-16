@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Inertia\Inertia;
 
 class UserMovieController extends Controller
 {
@@ -123,11 +124,8 @@ class UserMovieController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'errors' => $validator->errors(),
-                    'message' => 'Input validation failed.'
-                ], 422);
+                return Inertia::flash('error', 'Input validation failed.')->back();
+
             }
 
             $user = Auth::user();
@@ -138,10 +136,7 @@ class UserMovieController extends Controller
                 ->first();
 
             if ($existingMovie) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'This movie already in collection.',
-                ], 409);
+                return Inertia::flash('error', 'This movie already is in collection.')->back();
             }
 
 
@@ -152,19 +147,12 @@ class UserMovieController extends Controller
                 'user_rating' => $request->user_rating,
                 'comment' => $request->comment,
             ]);
+            return Inertia::flash('success', 'Movie added successfully.')->back();
 
-//            return response()->json([
-//                'success' => true,
-//                'data' => $userMovie,
-//                'message' => 'Movie added successfully.'
-//            ], 201);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while adding movie, please try again later.',
-                'error' => config('app.debug') ? $e->getMessage() : null
-            ], 500);
+            return Inertia::flash('error', 'An error occurred while adding movie, please try again later.')->back();
+
         }
     }
     public function update(Request $request, $id): JsonResponse

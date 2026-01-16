@@ -169,10 +169,7 @@
         letter-spacing: 5px;
         text-transform: uppercase;
     }
-    .error {
-        color: red;
-        margin-top: 10px;
-    }
+
     a {
         color: #06B153;
         transition: ease-in-out 0.2s;
@@ -407,7 +404,7 @@
     .movieDetails{
         display: flex;
         flex-direction: column;
-        gap: 10%;
+        gap: 1.5rem;
     }
     .movieDetailsProps{
         display: flex;
@@ -432,32 +429,10 @@
         font-weight: normal;
         margin-left: 1rem;
     }
-    /*input[type="range"]{*/
-    /*    appearance: none;*/
-    /*    border-radius: 100px;*/
-    /*    cursor: pointer;*/
-    /*    background: white;*/
-    /*    width: 100%;*/
-    /*    height: 16px;*/
-    /*}*/
-
-    /*input[type="range"]::-moz-range-thumb, input[type="range"]::-webkit-slider-thumb {*/
-    /*    appearance: none;*/
-    /*    width: 16px;*/
-    /*    height: 16px;*/
-    /*    border: 2px solid black;*/
-    /*    border-radius: 100%;*/
-    /*    background: #058C42;*/
-    /*    box-shadow: none;*/
-    /*    transition: all 0.1s ease-in-out;*/
-    /*}*/
-    /*input[type="range"]:hover::-moz-range-thumb, input[type="range"]:hover::-webkit-slider-thumb{*/
-    /*    background: #16DB65;*/
-    /*}*/
 
 
     .detailsTextArea{
-        height: 5%;
+        height: 20%;
     }
     .movieDetailsForm button{
         width: 25%;
@@ -465,14 +440,17 @@
     }
     .movieDetailsForm{
         display: flex;
+        flex-direction: column;
         justify-content: center;
         width: 80%;
+        height: 60%;
     }
     .movieDetailsForm form{
         display: flex;
         flex-direction: column;
         gap:1.5rem;
-        margin: auto;
+        margin: auto auto 0 auto;
+        height: 80%;
     }
     .btnSection{
         display: flex;
@@ -481,5 +459,16 @@
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
+    }
+    .detailsMessage{
+        text-align: center;
+        font-weight: bolder;
+        color: green;
+        width: 100%;
+        font-size: 1.5rem;
+    }
+    .error {
+        color: red;
+        margin-top: 10px;
     }
 }

@@ -51,11 +51,10 @@ const submit = () => {
             form.processing = false;
         },
         onSuccess: () => {
-
-            props.errors.value = {};
+            props.errors = {};
         },
         onError: (err) => {
-            props.errors.value = err;
+            props.errors = err;
             form.reset('title');
         }
     });
