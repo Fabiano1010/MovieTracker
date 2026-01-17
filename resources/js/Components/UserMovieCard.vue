@@ -27,8 +27,12 @@ const props = defineProps({
         type: String,
         default: null
     },
+    message: String,
 
-
+    movieStatus: String,
+    userRating: Number,
+    comment: String,
+    fav: Number
 })
 console.log(props.searching)
 const form = useForm({
@@ -64,14 +68,19 @@ const submit = () => {
 
 <template>
     <div class="movieCard">
-        <div class="movieCardBody">
+        <div class="movieCardBody userMovieCardBody">
             <div class="movieCardImgDiv">
                 <img class="movieCardImg" :src="img" :alt="titleOriginal" >
             </div>
-            <div class="movieCardTitle">
+            <div class="movieCardUserInfo">
                 <div class="movieCardText">Original title: <p class="movieTitle">{{ titleOriginal }}</p> </div>
                 <div class="movieCardText">Primary title: <p class="movieTitle">{{ titlePrimary }}</p> </div>
                 <div class="movieCardText">Release date:  <p class="movieDate">{{ date }}</p></div>
+            </div>
+            <div class="movieCardUserInfo">
+                <div class="movieCardText">Status: <p class="movieTitle">{{ props.status }}</p> </div>
+                <div class="movieCardText">User rating: <p class="movieTitle">{{ props.userRating }}</p> </div>
+                <div class="movieCardText" v-if="props.fav===1"> <p class="movieDate">Favourite movie</p></div>
             </div>
         </div>
         <div class="movieCardBtn">

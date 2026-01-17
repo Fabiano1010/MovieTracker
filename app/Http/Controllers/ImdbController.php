@@ -28,7 +28,7 @@ class ImdbController extends Controller
         if ($response->successful()) {
             $data=json_encode([]);
             $data = $response->json();
-            return Inertia::render('Movies/Search', [
+            return Inertia::render('Search', [
                 'movies' => $data,
             ]);
         }

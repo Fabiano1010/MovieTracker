@@ -12,7 +12,7 @@ Route::get('/', [ImdbController::class, 'getPopular'])->name('home');
 Route::middleware('auth')->group(function () {
 
     Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
-    Route::inertia('/search', 'Movies/Search')->name('search');
+    Route::inertia('/search', 'Search')->name('search');
 
     Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 

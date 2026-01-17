@@ -13,7 +13,6 @@ use Inertia\Inertia;
 
 class UserMovieController extends Controller
 {
-
     public function index(Request $request){
         try{
             $user = Auth::user();
@@ -26,17 +25,21 @@ class UserMovieController extends Controller
                     $query->where('status',$status);
                 }
             }
-            $sortBy=$request->input('sort_by', 'added_at');
+            $sortBy=$request->input('sort_by', 'created_at');
             $sortOrder=$request->input('sort_order', 'desc');
             $query->orderBy($sortBy, $sortOrder);
-            $perPage = $request->input('per_page', 5);
+            $perPage = $request->input('per_page', 3);
             $movies = $query->paginate($perPage);
 
-            return response()->json([
-                'success' => true,
-                'data' => $movies,
-                'message' => 'Movies retrieved successfully.'
+            return Inertia::render('Dashboard', [
+                'movies' => $movies,
             ]);
+
+//            return response()->json([
+//                'success' => true,
+//                'data' => $movies,
+//                'message' => 'Movies retrieved successfully.'
+//            ]);
         }catch (\Exception $e) {
             return response()->json([
                 'success' => false,
