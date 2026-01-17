@@ -16,8 +16,8 @@ const props = defineProps({
 const loading = ref(false)
 const fetchData = () => {
     loading.value = true
-    router.get(route('movies.show'), {
-
+    router.get(route('movies.index'), {
+        status: 'to_watch'
         }, {
         preserveState: true,
         preserveScroll: true,
@@ -37,7 +37,7 @@ const fetchData = () => {
 
 onMounted(() => {
     {
-
+        fetchData();
     }
 })
 
