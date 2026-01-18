@@ -66,6 +66,44 @@ class ImdbController extends Controller
             return null;
         }
     }
+    public function getTitleJson($id)
+    {
+        try {
+            $response = Http::timeout(30)->get("https://api.imdbapi.dev/titles/{$id}");
+
+            if ($response->successful()) {
+                return response()->json([
+                    'success' => true,
+                    'data' => $response->json(),
+                    'message' => 'Dane pobrane pomyślnie'
+                ]);
+            }
+
+            \Log::error('API request failed', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'error' => 'Nie udało się pobrać danych z API IMDb',
+                'status_code' => $response->status(),
+                'message' => 'Błąd podczas pobiarania danych'
+            ], $response->status());
+
+        } catch (\Exception $e) {
+            \Log::error('Exception in getTitleJson', [
+                'error' => $e->getMessage(),
+                'id' => $id
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'error' => 'Wystąpił wyjątek podczas komunikacji z API',
+                'message' => 'Błąd serwera'
+            ], 500);
+        }
+    }
 
     public function getPopular(Request $request)
     {

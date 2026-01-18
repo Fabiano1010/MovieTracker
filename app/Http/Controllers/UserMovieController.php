@@ -47,38 +47,44 @@ class UserMovieController extends Controller
         }
     }
 
-    public function show($id): JsonResponse
+//    public function getByMovieId($movieId)
+//    {
+//        try {
+//            $user = Auth::user();
+//
+//            $userMovie = UserMovie::where('user_id', $user->id)
+//                ->where('movie_id', $movieId)
+//                ->first();
+//
+//            if (!$userMovie) {
+//                return response()->json([
+//                    'success' => false,
+//                    'message' => 'Movie not found.',
+//                ], 404);
+//            }
+//            return Inertia::render('Movies/MovieDetails', [
+//                'userMovie' => $userMovie,
+//            ]);
+//            return response()->json([
+//                'success' => true,
+//                'data' => $userMovie,
+//                'message' => 'Movie retrieved successfully.'
+//            ]);
+//
+//        } catch (\Exception $e) {
+//            return response()->json([
+//                'success' => false,
+//                'message' => 'An error occurred, please try again later.',
+//                'error' => config('app.debug') ? $e->getMessage() : null
+//            ], 500);
+//        }
+//    }
+
+    public function getByMovieId($movieId)
     {
         try {
             $user = Auth::user();
 
-            $userMovie = UserMovie::where('user_id', $user->id)
-                ->findOrFail($id);
-
-            return response()->json([
-                'success' => true,
-                'data' => $userMovie,
-                'message' => 'Movie retrieved successfully.'
-            ]);
-
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Movie not found.',
-            ], 404);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred, please try again later.',
-                'error' => config('app.debug') ? $e->getMessage() : null
-            ], 500);
-        }
-    }
-
-    public function getByMovieId($movieId): JsonResponse
-    {
-        try {
-            $user = Auth::user();
 
             $userMovie = UserMovie::where('user_id', $user->id)
                 ->where('movie_id', $movieId)
@@ -87,17 +93,38 @@ class UserMovieController extends Controller
             if (!$userMovie) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Movie not found.',
+                    'message' => 'Movie not found in your collection.',
                 ], 404);
             }
 
-            return response()->json([
-                'success' => true,
-                'data' => $userMovie,
-                'message' => 'Movie retrieved successfully.'
+
+            $imdbController = new ImdbController();
+            $imdbResponse = $imdbController->getTitleJson($movieId);
+
+
+            if (!$imdbResponse || ($imdbResponse->getStatusCode() !== 200)) {
+                \Log::warning('Failed to get IMDb data for movie', ['movie_id' => $movieId]);
+                $imdbData = null;
+            } else {
+                $imdbContent = json_decode($imdbResponse->getContent(), true);
+                $imdbData = $imdbContent['success'] ? $imdbContent['data'] : null;
+            }
+
+
+
+            return Inertia::render('Movies/MovieDetails', [
+
+                'userMovie' => $userMovie,
+                'movie' => $imdbData,
             ]);
 
         } catch (\Exception $e) {
+            \Log::error('Error in getByMovieId', [
+                'error' => $e->getMessage(),
+                'movie_id' => $movieId,
+                'user_id' => Auth::id()
+            ]);
+
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred, please try again later.',
@@ -105,6 +132,7 @@ class UserMovieController extends Controller
             ], 500);
         }
     }
+
     public function store(Request $request)
     {
         try {
