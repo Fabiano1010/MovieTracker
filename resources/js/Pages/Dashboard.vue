@@ -1,7 +1,7 @@
 <script setup>
 
-import {onMounted, onBeforeUnmount, ref , computed} from 'vue';
-import {router, useForm} from '@inertiajs/vue3';
+import { onMounted, onBeforeUnmount, ref , watch } from 'vue';
+import { router, useForm } from '@inertiajs/vue3';
 import UserMovieCard from "@/Components/UserMovieCard.vue";
 
 const props = defineProps({
@@ -24,38 +24,77 @@ const form = useForm({
 })
 
 
-
-
 const loading = ref(false)
-const fetchData = () => {
+const currentPage = ref(1)
+const containerRef = ref(null)
+const allMovies = ref([])
+const isProcessing = ref(props.processing)
+const fetchData = (page = 1, append = false, reset = false) => {
     loading.value = true
+    if(reset) currentPage.value = 1
     router.get(route('movies.index'), {
         status: form.selectedStatus,
         sort_order: form.sortOption,
         is_favourite: form.fav,
+        page: page
 
-        }, {
+    }, {
         preserveState: true,
-        preserveScroll: true,
-        onSuccess: () => {
-            props.processing = false
+        preserveScroll: false,
+        onSuccess: (page) => {
+            if (append) {
+
+                allMovies.value = [...allMovies.value, ...page.props.movies.data]
+            } else {
+
+                allMovies.value = page.props.movies.data
+            }
+            isProcessing.value = false
+            loading.value = false
         },
         onError: () => {
-            props.processing = false
+            isProcessing.value = false
+            loading.value = false
         },
         onFinish: () => {
-            props.processing = false
+            isProcessing.value = false
+            loading.value = false
         }
 
     })
 }
 
+const loadMore = () => {
+    if (loading.value || !props.movies.next_page_url) return
+
+    currentPage.value++
+    fetchData(currentPage.value, true,false)
+}
+
+const handleScroll = (e) => {
+    const element = e.target
+    const bottomOfContainer = element.scrollHeight - element.scrollTop <= element.clientHeight + 100
+
+    if (bottomOfContainer) {
+        loadMore()
+    }
+}
 
 onMounted(() => {
-    {
-        fetchData();
+    fetchData();
+    containerRef.value = document.getElementById('userContainer')
+    if (containerRef.value) {
+        containerRef.value.addEventListener('scroll', handleScroll)
     }
 })
+
+onBeforeUnmount(() => {
+    if (containerRef.value) {
+        containerRef.value.removeEventListener('scroll', handleScroll)
+    }
+})
+
+
 
 </script>
 <template>
@@ -67,7 +106,7 @@ onMounted(() => {
     </div>
 
     <div>
-        <form @submit.prevent="fetchData" class="movieForm">
+        <form @submit.prevent="fetchData(1,false,true)" class="movieForm">
             <select v-model="form.selectedStatus">
                 <option selected value="">All</option>
                 <option value="to_watch">To watch</option>
@@ -95,18 +134,23 @@ onMounted(() => {
     <div v-if="props.processing" class="loading">
         Loading movies...
     </div>
-    <div class="movieCardContainer userMoviesContainer" v-if="props.movies">
-        <UserMovieCard v-for="movie in props.movies.data"
-                   :id="movie.movie_id"
-                   :titleOriginal="movie.original_title  || ''"
-                   :titlePrimary="movie.primary_title  || ''"
-                   :date="movie.start_year  || ''"
-                   :img="movie.primary_img || ''"
-                   :movieStatus="movie.status"
-                   :comment="movie.comment"
-                   :userRating="movie.user_rating"
-                   :fav="movie.is_favourite"
+    <div id="userContainer" class="movieCardContainer userMoviesContainer" v-if="props.movies">
+        <UserMovieCard v-for="movie in allMovies"
+                       :key="movie.movie_id"
+                       :id="movie.movie_id"
+                       :titleOriginal="movie.original_title  || ''"
+                       :titlePrimary="movie.primary_title  || ''"
+                       :date="(movie.start_year).toString()  || ''"
+                       :img="movie.primary_img || ''"
+                       :movieStatus="movie.status"
+                       :comment="movie.comment"
+                       :userRating="movie.user_rating"
+                       :fav="movie.is_favourite"
         />
+    </div>
+
+    <div v-if="loading" class="loading" style="text-align: center; padding: 20px;">
+        Loading more movies...
     </div>
 
 </template>

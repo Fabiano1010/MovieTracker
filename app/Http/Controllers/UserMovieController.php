@@ -31,7 +31,7 @@ class UserMovieController extends Controller
             $sortBy=$request->input('sort_by', 'updated_at');
             $sortOrder=$request->input('sort_order', 'desc');
             $query->orderBy($sortBy, $sortOrder);
-            $perPage = $request->input('per_page', 5);
+            $perPage = $request->input('per_page', 4);
             $movies = $query->paginate($perPage);
 
             return Inertia::render('Dashboard', [
