@@ -259,7 +259,7 @@ class UserMovieController extends Controller
             ], 500);
         }
     }
-    public function deleteByMovieId($movieId): JsonResponse
+    public function deleteByMovieId($movieId)
     {
         try {
             $user = Auth::user();
@@ -269,25 +269,18 @@ class UserMovieController extends Controller
                 ->first();
 
             if (!$userMovie) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Movie not found.',
-                ], 404);
+                return Inertia::flash('error', 'Movie not found.')->back();
+
             }
 
             $userMovie->delete();
+            return Inertia::flash('success', 'Movie deleted successfully.')->back();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Movie deleted successfully.'
-            ]);
+
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred, please try again later.',
-                'error' => config('app.debug') ? $e->getMessage() : null
-            ], 500);
+            return Inertia::flash('error', 'An error occurred, please try again later.')->back();
+
         }
     }
 

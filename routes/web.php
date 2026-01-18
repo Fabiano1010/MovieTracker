@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('movies')->group(function () {
         Route::get('/search', [ImdbController::class, 'search'])->name('movies.search');
-        Route::get('/title', [ImdbController::class, 'getTitle'])->name('movies.title');;
+        Route::get('/title', [ImdbController::class, 'getTitle'])->name('movies.title');
         Route::get('/popular', [ImdbController::class, 'getPopular'])->name('movies.popular');
 
 
@@ -28,6 +28,11 @@ Route::middleware('auth')->group(function () {
             ->name('movies.index');
         Route::post('/user-movies', [UserMovieController::class, 'store'])
             ->name('movies.store');
+
+        Route::delete('/user-movies/{movieId}', [UserMovieController::class, 'deleteByMovieId'])
+            ->name('movies.destroy');
+
+
 
     });
 

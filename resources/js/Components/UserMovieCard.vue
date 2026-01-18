@@ -46,11 +46,35 @@ const mStatus=reactive({
     'in_progress': 'In progress',
     'watched': 'Movie watched',
 })
+const deleteMovie = () => {
+    if (confirm('Are you sure you want to delete this movie?')) {
 
+        console.log('Deleting movie ID:', props.id);
+        console.log('Route:', route('user-movies.destroy', props.id));
+
+        router.delete(route('movies.destroy', props.id), {
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: (page) => {
+                console.log('Success response:', page);
+                router.visit(window.location.pathname, {
+                    preserveState: false,
+                    preserveScroll: true
+                })
+
+            },
+            onError: (errors) => {
+                console.error('Error deleting movie:', errors);
+                alert('Error: ' + (errors.message || 'Could not delete movie'));
+            }
+        });
+    }
+};
 
 const submit = () => {
     router.get(route('movies.title'), {
         id: form.movieId
+
     }, {
         preserveState: true,
         preserveScroll: true,
@@ -93,9 +117,15 @@ const submit = () => {
             </div>
         </div>
         <div class="movieCardBtn">
+
             <form @submit.prevent="submit">
                 <button class="primary-btn movieCardShowBtn" :disabled="form.processing">
                     Show
+                </button>
+            </form>
+            <form @submit.prevent="deleteMovie">
+                <button class="primary-btn movieCardShowBtn nav-link-logout" :disabled="form.processing">
+                    Delete
                 </button>
             </form>
         </div>

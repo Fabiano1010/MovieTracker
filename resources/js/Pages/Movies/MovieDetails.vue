@@ -22,7 +22,9 @@ const props = defineProps({
         default: () => ({ user: null })
     },
     message: String,
-
+    userMovie:{
+        type: Object,
+    }
 
 })
 
