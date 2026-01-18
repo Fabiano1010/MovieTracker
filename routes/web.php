@@ -32,7 +32,9 @@ Route::middleware('auth')->group(function () {
         Route::delete('/user-movies/{movieId}', [UserMovieController::class, 'deleteByMovieId'])
             ->name('movies.destroy');
 
-
+        Route::get('/user-movies/{id}', [UserMovieController::class, 'show'])
+            ->name('movies.show')
+            ->middleware('auth');
 
     });
 

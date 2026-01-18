@@ -77,7 +77,6 @@ const handleScroll = (e) => {
     const bottomOfContainer = element.scrollHeight - element.scrollTop <= element.clientHeight + 100
 
     if (bottomOfContainer) {
-
         loadMore()
     }
 }

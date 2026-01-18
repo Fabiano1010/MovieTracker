@@ -24,6 +24,7 @@ const props = defineProps({
     message: String,
     userMovie:{
         type: Object,
+        default: null
     }
 
 })
