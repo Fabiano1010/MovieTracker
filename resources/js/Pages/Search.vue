@@ -36,7 +36,7 @@ const submit = () => {
 const props = defineProps({
     movies: {
         type: Object,
-        required: true,
+
         default: () => ({ titles: [] })
     },
 
@@ -68,7 +68,7 @@ const props = defineProps({
                    :id="movie.id"
                    :titleOriginal="movie.originalTitle  || ''"
                    :titlePrimary="movie.primaryTitle  || ''"
-                   :date="movie.startYear  || ''"
+                   :date="String(movie.startYear) || ''"
                    :img="movie.primaryImage?.url || ''"
 
         />

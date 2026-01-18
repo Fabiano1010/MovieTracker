@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, onBeforeUnmount, ref , watch } from 'vue';
+import { onMounted, onUnmounted, ref , watch } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
 import UserMovieCard from "@/Components/UserMovieCard.vue";
 
@@ -79,7 +79,7 @@ const handleScroll = (e) => {
         loadMore()
     }
 }
-
+// console.log(currentPage.value)
 onMounted(() => {
     fetchData();
     containerRef.value = document.getElementById('userContainer')
@@ -88,11 +88,11 @@ onMounted(() => {
     }
 })
 
-onBeforeUnmount(() => {
-    if (containerRef.value) {
-        containerRef.value.removeEventListener('scroll', handleScroll)
-    }
-})
+// onUnmounted(() => {
+//     if (containerRef.value) {
+//         containerRef.value.removeEventListener('scroll', handleScroll)
+//     }
+// })
 
 
 
@@ -134,19 +134,22 @@ onBeforeUnmount(() => {
     <div v-if="props.processing" class="loading">
         Loading movies...
     </div>
-    <div id="userContainer" class="movieCardContainer userMoviesContainer" v-if="props.movies">
+    <div id="userContainer" class="movieCardContainer userMoviesContainer" v-if="props.movies?.data?.length">
         <UserMovieCard v-for="movie in allMovies"
                        :key="movie.movie_id"
                        :id="movie.movie_id"
                        :titleOriginal="movie.original_title  || ''"
                        :titlePrimary="movie.primary_title  || ''"
-                       :date="(movie.start_year).toString()  || ''"
+                       :date="String(movie.start_year)  || ''"
                        :img="movie.primary_img || ''"
                        :movieStatus="movie.status"
                        :comment="movie.comment"
                        :userRating="movie.user_rating"
                        :fav="movie.is_favourite"
         />
+    </div>
+    <div id="userContainer" class="movieCardContainer userMoviesContainer" v-else>
+        <p class="dashboardEmpty"> Add some movies already!</p>
     </div>
 
     <div v-if="loading" class="loading" style="text-align: center; padding: 20px;">
