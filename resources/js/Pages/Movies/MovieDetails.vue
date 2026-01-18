@@ -117,7 +117,6 @@ const updateMovie = () => {
             form.processing = false;
         },
         onSuccess: () => {
-            // Możesz pokazać komunikat sukcesu
             page.props.flash = {
                 success: 'Movie updated successfully!'
             };
@@ -244,12 +243,12 @@ onBeforeUnmount(() => {
             </div>
 
             <div v-if="movieExists" class="movieStatusInfo">
-                <p>✅ This movie is in your collection</p>
+                <p class="movieTitle"> This movie is in your collection</p>
                 <p v-if="userMovie.status === 'to_watch'">Status: Want to watch</p>
                 <p v-if="userMovie.status === 'in_progress'">Status: Currently watching</p>
                 <p v-if="userMovie.status === 'watched'">Status: Watched</p>
                 <p v-if="userMovie.rating">Your rating: {{ userMovie.rating }}/10</p>
-                <p v-if="userMovie.is_favourite">⭐ Favourite</p>
+                <p v-if="userMovie.is_favourite" class="fav">Favourite movie</p>
             </div>
 
             <div class="movieDetailsForm">

@@ -47,39 +47,6 @@ class UserMovieController extends Controller
         }
     }
 
-//    public function getByMovieId($movieId)
-//    {
-//        try {
-//            $user = Auth::user();
-//
-//            $userMovie = UserMovie::where('user_id', $user->id)
-//                ->where('movie_id', $movieId)
-//                ->first();
-//
-//            if (!$userMovie) {
-//                return response()->json([
-//                    'success' => false,
-//                    'message' => 'Movie not found.',
-//                ], 404);
-//            }
-//            return Inertia::render('Movies/MovieDetails', [
-//                'userMovie' => $userMovie,
-//            ]);
-//            return response()->json([
-//                'success' => true,
-//                'data' => $userMovie,
-//                'message' => 'Movie retrieved successfully.'
-//            ]);
-//
-//        } catch (\Exception $e) {
-//            return response()->json([
-//                'success' => false,
-//                'message' => 'An error occurred, please try again later.',
-//                'error' => config('app.debug') ? $e->getMessage() : null
-//            ], 500);
-//        }
-//    }
-
     public function getByMovieId($movieId)
     {
         try {
