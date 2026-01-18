@@ -171,6 +171,7 @@ class UserMovieController extends Controller
                 'status' => 'sometimes|in:to_watch,watched,in_progress',
                 'user_rating' => 'sometimes|integer|min:0|max:10|nullable',
                 'comment' => 'sometimes|string|max:1000|nullable',
+                'is_favourite'=> 'boolean',
             ]);
 
             if ($validator->fails()) {
@@ -183,11 +184,11 @@ class UserMovieController extends Controller
 
             $user = Auth::user();
 
-
             $userMovie = UserMovie::where('user_id', $user->id)
-                ->findOrFail($id);
+                ->where('movie_id', $id)
+                ->first();
 
-
+//            dd($request->all());
             $dataToUpdate = [];
 
             if ($request->has('status')) {
@@ -200,6 +201,9 @@ class UserMovieController extends Controller
 
             if ($request->has('comment')) {
                 $dataToUpdate['comment'] = $request->comment;
+            }
+            if ($request->has('is_favourite')) {
+                $dataToUpdate['is_favourite'] = $request->is_favourite;
             }
 
 

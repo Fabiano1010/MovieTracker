@@ -102,7 +102,7 @@ const createMovie  = () => {
 }
 
 const updateMovie = () => {
-    router.put(route('user-movies.update', form.movieId), {
+    router.put(route('movies.update', form.movieId), {
         status: form.status,
         user_rating: form.rating,
         comment: form.comment,
@@ -121,7 +121,7 @@ const updateMovie = () => {
                 success: 'Movie updated successfully!'
             };
 
-            // Odśwież userMovie props
+
             setTimeout(() => {
                 router.reload({
                     only: ['userMovie', 'flash'],
@@ -249,6 +249,7 @@ onBeforeUnmount(() => {
                 <p v-if="userMovie.status === 'watched'">Status: Watched</p>
                 <p v-if="userMovie.rating">Your rating: {{ userMovie.rating }}/10</p>
                 <p v-if="userMovie.is_favourite" class="fav">Favourite movie</p>
+                <p v-if="userMovie.comment">{{ userMovie.comment }}</p>
             </div>
 
             <div class="movieDetailsForm">
@@ -269,13 +270,13 @@ onBeforeUnmount(() => {
                         <option value="watched">Finished</option>
                     </select>
 
-                    <input type="range" min="1" max="10" v-model="form.rating">
+                    <input type="range" min="1" max="10" v-model="form.rating" >
 
                     <div class="rangeIndicator" >
                        Your rating: {{ form.rating }} / 10
                     </div>
                     <div class="checkboxDiv">
-                        <input type="checkbox" v-model="form.fav" id="remember" >
+                        <input type="checkbox" v-model="form.fav" id="remember" :checked="form.fav === 1 || form.fav === true">
                         <label for="remember">Favourite movie </label>
                     </div>
                     <textarea class="detailsTextArea" v-model="form.comment" placeholder="Comment"></textarea>

@@ -33,8 +33,9 @@ Route::middleware('auth')->group(function () {
             ->name('movies.destroy');
 
         Route::get('/user-movies/{id}', [UserMovieController::class, 'getByMovieId'])
-            ->name('movies.show')
-            ->middleware('auth');
+            ->name('movies.show');
+        Route::put('/user-movies/{id}', [UserMovieController::class, 'update'])
+            ->name('movies.update');
 
     });
 
