@@ -1,5 +1,6 @@
 <script setup>
 import {router, useForm} from "@inertiajs/vue3";
+import {reactive} from "vue";
 
 
 const props = defineProps({
@@ -40,6 +41,13 @@ const form = useForm({
 
 });
 
+const mStatus=reactive({
+    'to_watch': 'To watch',
+    'in_progress': 'In progress',
+    'watched': 'Movie watched',
+})
+
+
 const submit = () => {
     router.get(route('movies.title'), {
         id: form.movieId
@@ -78,9 +86,10 @@ const submit = () => {
                 <div class="movieCardText">Release date:  <p class="movieDate">{{ date }}</p></div>
             </div>
             <div class="movieCardUserInfo">
-                <div class="movieCardText">Status: <p class="movieTitle">{{ props.status }}</p> </div>
-                <div class="movieCardText">User rating: <p class="movieTitle">{{ props.userRating }}</p> </div>
-                <div class="movieCardText" v-if="props.fav===1"> <p class="movieDate">Favourite movie</p></div>
+                <div class="movieCardText" v-if="props.fav===1"> <p class="movieDate fav">Favourite movie</p></div>
+                <div class="movieCardText">Status: <p class="movieTitle">{{ mStatus[props.movieStatus] }}</p> </div>
+                <div class="movieCardText">User rating: <p class="movieTitle">{{ props.userRating }}/10</p> </div>
+
             </div>
         </div>
         <div class="movieCardBtn">
