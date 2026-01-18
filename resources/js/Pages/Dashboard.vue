@@ -1,7 +1,7 @@
 <script setup>
 
-import {onMounted, onBeforeUnmount, ref} from 'vue';
-import { router } from '@inertiajs/vue3';
+import {onMounted, onBeforeUnmount, ref , computed} from 'vue';
+import {router, useForm} from '@inertiajs/vue3';
 import UserMovieCard from "@/Components/UserMovieCard.vue";
 
 const props = defineProps({
@@ -13,13 +13,27 @@ const props = defineProps({
         type: String,
         default: null
     },
-    processing:  true
+    processing:  true,
 })
+
+const form = useForm({
+    selectedStatus: '',
+    fav: false,
+    sortOption: 'desc'
+
+})
+
+
+
+
 const loading = ref(false)
 const fetchData = () => {
     loading.value = true
     router.get(route('movies.index'), {
-        // status: ''
+        status: form.selectedStatus,
+        sort_order: form.sortOption,
+        is_favourite: form.fav,
+
         }, {
         preserveState: true,
         preserveScroll: true,
@@ -53,8 +67,28 @@ onMounted(() => {
     </div>
 
     <div>
-        <form @submit.prevent="submit" class="movieForm">
-
+        <form @submit.prevent="fetchData" class="movieForm">
+            <select v-model="form.selectedStatus">
+                <option selected value="">All</option>
+                <option value="to_watch">To watch</option>
+                <option value="in_progress">In progress</option>
+                <option value="watched">Finished</option>
+            </select>
+            <div class="checkboxDiv">
+                <input type="checkbox" id="remember" v-model="form.fav">
+                <label for="remember">Favourite</label>
+            </div>
+            <div class="movieFormRadio">
+                <p>
+                    <input type="radio" id="sortDesc" v-model="form.sortOption" value="desc"> Descending
+                </p>
+                <p>
+                    <input type="radio" id="sortAsc" v-model="form.sortOption" value="asc"> Ascending
+                </p>
+            </div>
+            <div class="btnSectionUser">
+                <button class="primary-btn">Apply</button>
+            </div>
         </form>
     </div>
 

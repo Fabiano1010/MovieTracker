@@ -30,10 +30,9 @@ const props = defineProps({
 
 
 })
-console.log(props.searching)
+
 const form = useForm({
     movieId: props.id,
-    movieSearched: props.searching
 });
 
 const submit = () => {

@@ -25,21 +25,19 @@ class UserMovieController extends Controller
                     $query->where('status',$status);
                 }
             }
-            $sortBy=$request->input('sort_by', 'created_at');
+            if ($request->filled('is_favourite') && $request->boolean('is_favourite') == 1) {
+                $query->where('is_favourite', $request->boolean('is_favourite'));
+            }
+            $sortBy=$request->input('sort_by', 'updated_at');
             $sortOrder=$request->input('sort_order', 'desc');
             $query->orderBy($sortBy, $sortOrder);
-            $perPage = $request->input('per_page', 3);
+            $perPage = $request->input('per_page', 5);
             $movies = $query->paginate($perPage);
 
             return Inertia::render('Dashboard', [
                 'movies' => $movies,
             ]);
 
-//            return response()->json([
-//                'success' => true,
-//                'data' => $movies,
-//                'message' => 'Movies retrieved successfully.'
-//            ]);
         }catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -115,7 +113,7 @@ class UserMovieController extends Controller
                 'primary_img'=> 'string|nullable',
                 'primary_title'=> 'string|nullable',
                 'original_title'=> 'string|nullable',
-                'start_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+                'start_year' => 'nullable|integer|min:1900|max:' . date('Y')+5,
                 'status' => 'sometimes|in:to_watch,watched,in_progress',
                 'user_rating' => 'sometimes|integer|min:0|max:10|nullable',
                 'comment' => 'sometimes|string|max:1000|nullable',

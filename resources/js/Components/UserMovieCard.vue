@@ -34,10 +34,10 @@ const props = defineProps({
     comment: String,
     fav: Number
 })
-console.log(props.searching)
+
 const form = useForm({
     movieId: props.id,
-    movieSearched: props.searching
+
 });
 
 const submit = () => {
@@ -67,10 +67,10 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="movieCard">
+    <div class="movieCard userMovieCard">
         <div class="movieCardBody userMovieCardBody">
-            <div class="movieCardImgDiv">
-                <img class="movieCardImg" :src="img" :alt="titleOriginal" >
+            <div class="movieCardImgDiv userMovieCardImgDiv">
+                <img class="movieCardImg userMovieCardImgDiv" :src="img" :alt="titleOriginal" >
             </div>
             <div class="movieCardUserInfo">
                 <div class="movieCardText">Original title: <p class="movieTitle">{{ titleOriginal }}</p> </div>

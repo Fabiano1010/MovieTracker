@@ -474,9 +474,14 @@
         filter: drop-shadow(0px 0px 10px red);
     }
     .userMoviesContainer{
-        padding: 0 10% 0 10%;
-        overflow: hidden;
+        padding: 1% 10% 0 10%;
+        overflow: auto;
         gap: 0.8rem;
+        max-height: 80%;
+
+    }
+    .userMovieCard{
+        height: 26%;
 
     }
     .movieCardUserTitle{
@@ -485,5 +490,20 @@
     .userMovieCardBody{
         display: flex;
         gap: 10%
+    }
+    .movieForm{
+        width: 80%;
+        display: flex;
+        gap: 5%;
+        font-size: 1.2rem;
+    }
+    .movieForm select{
+        width: 20%;
+    }
+    .movieFormRadio{
+        width: 10%;
+    }
+    .btnSectionUser{
+        width: 10%;
     }
 }
