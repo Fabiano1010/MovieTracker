@@ -36,9 +36,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    router.get(route('movies.title'), {
-        id: form.movieId
-    }, {
+    router.get(route('movies.show',form.movieId), {
         preserveState: true,
         preserveScroll: true,
         replace: true,

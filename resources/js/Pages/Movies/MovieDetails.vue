@@ -242,17 +242,20 @@ onBeforeUnmount(() => {
                 </div>
             </div>
 
-            <div v-if="movieExists" class="movieStatusInfo">
-                <p class="movieTitle"> This movie is in your collection</p>
-                <p v-if="userMovie.status === 'to_watch'">Status: Want to watch</p>
-                <p v-if="userMovie.status === 'in_progress'">Status: Currently watching</p>
-                <p v-if="userMovie.status === 'watched'">Status: Watched</p>
-                <p v-if="userMovie.rating">Your rating: {{ userMovie.rating }}/10</p>
-                <p v-if="userMovie.is_favourite" class="fav">Favourite movie</p>
-                <p v-if="userMovie.comment">{{ userMovie.comment }}</p>
+            <div v-if="movieExists" class="movieStatusInfo userMovieInfo">
+                <span class=""><b> Movie in your collection</b></span>
+                <span v-if="userMovie.status === 'to_watch'">Status: <b>Want to watch</b></span>
+                <span v-if="userMovie.status === 'in_progress'">Status: <b>Currently watching</b></span>
+                <span v-if="userMovie.status === 'watched'">Status: <b>Watched</b></span>
+                <span v-if="userMovie.user_rating">Your rating: {{ userMovie.user_rating }}/10</span>
+                <span v-if="userMovie.is_favourite" class="fav">Favourite movie</span>
+                <span class="commentSpan" v-if="userMovie.comment">{{ userMovie.comment }}</span>
             </div>
 
             <div class="movieDetailsForm">
+                <div v-if="page.flash.successUpdate" class="detailsMessage">
+                    {{ page.flash.successUpdate }}
+                </div>
                 <div v-if="page.flash.success" class="detailsMessage">
                     {{ page.flash.success }}
                 </div>

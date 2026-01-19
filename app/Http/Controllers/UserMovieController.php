@@ -57,12 +57,12 @@ class UserMovieController extends Controller
                 ->where('movie_id', $movieId)
                 ->first();
 
-            if (!$userMovie) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Movie not found in your collection.',
-                ], 404);
-            }
+//            if (!$userMovie) {
+//                return response()->json([
+//                    'success' => false,
+//                    'message' => 'Movie not found in your collection.',
+//                ], 404);
+//            }
 
 
             $imdbController = new ImdbController();
@@ -163,7 +163,7 @@ class UserMovieController extends Controller
 
         }
     }
-    public function update(Request $request, $id): JsonResponse
+    public function update(Request $request, $id)
     {
         try {
 
@@ -175,11 +175,7 @@ class UserMovieController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'errors' => $validator->errors(),
-                    'message' => 'Input validation failed.'
-                ], 422);
+                return Inertia::flash('error', 'Validation failed')->back();
             }
 
             $user = Auth::user();
@@ -210,24 +206,17 @@ class UserMovieController extends Controller
             if (!empty($dataToUpdate)) {
                 $userMovie->update($dataToUpdate);
             }
-
-            return response()->json([
-                'success' => true,
-                'data' => $userMovie,
-                'message' => 'Movie updated successfully.'
-            ]);
+            return Inertia::flash('successUpdate', 'Movie updated.')->back();
+//            return response()->json([
+//                'success' => true,
+//                'data' => $userMovie,
+//                'message' => 'Movie updated successfully.'
+//            ]);
 
         } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Movie not found.',
-            ], 404);
+            return Inertia::flash('error', 'Movie not found')->back();
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred, please try again later.',
-                'error' => config('app.debug') ? $e->getMessage() : null
-            ], 500);
+            return Inertia::flash('error', 'An error occurred while adding movie, please try again later.')->back();
         }
     }
     public function destroy($id): JsonResponse

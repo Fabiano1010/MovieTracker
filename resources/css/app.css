@@ -391,7 +391,8 @@
         flex-direction: row;
         padding: 2rem;
         gap: 2rem;
-        font-size: 1.05rem;
+        font-size: 1rem;
+        overflow: auto;
     }
     .movieDetailImgDiv{
         width: 35%;
@@ -448,7 +449,7 @@
         flex-direction: column;
         justify-content: center;
         width: 80%;
-        height: 60%;
+        height: 50%;
     }
     .movieDetailsForm form{
         display: flex;
@@ -482,11 +483,11 @@
         padding: 1% 10% 0 10%;
         overflow: auto;
         gap: 0.8rem;
-        max-height: 80%;
+        max-height: 75%;
 
     }
     .userMovieCard{
-        height: 26%;
+        /*height: 35%;*/
         gap:5%;
 
     }
@@ -511,7 +512,7 @@
         width: 20%;
     }
     .movieFormRadio{
-        width: 10%;
+        width: 12%;
     }
     .btnSectionUser{
         width: 10%;
@@ -526,6 +527,18 @@
         font-weight: bolder;
         font-size: 1.5rem;
         filter: drop-shadow(0px 0px 5px black);
+        text-align: center;
     }
+    .userMovieInfo{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .userMovieInfo span{
+        font-size: 1rem;
+    }
+    .commentSpan{
+        overflow: auto;
 
+    }
 }
