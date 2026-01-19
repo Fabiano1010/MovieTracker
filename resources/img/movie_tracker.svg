@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="-6 -6 77 77">
+<desc>Created with SVGMaker Editor 2.2.3</desc>
+<defs>
+</defs>
+<g transform="matrix(1.0608 0 0 1.0608 31.9192 31.1308)">
+<g transform="translate(0,0)" style="">
+<rect transform="translate(0,0)" style="stroke: rgb(255,255,255); stroke-width: 3.2; fill: none" x="-32.6736" y="-27.2169" rx="2" ry="2" width="62.5523" height="51.9051"/>
+<line transform="translate(0,0)" style="stroke: rgb(255,255,255); stroke-width: 3.2; fill: none" x1="-32.6736" y1="-16.0641" x2="29.8786" y2="-16.0641"/>
+<path transform="translate(0,0)" style="stroke: rgb(255,255,255); stroke-width: 3.2; stroke-linecap: round; fill: none" stroke-linecap="round" d="M-6.6412-3.3671L-6.6412 11.6454C-6.6412 11.8975-6.4988 12.1279-6.2733 12.2406-6.0478 12.3533-5.7781 12.329-5.5764 12.1778L6.7876 4.5916C6.9819 4.4595 7.0901 4.2331 7.0708 3.9989 7.0515 3.7646 6.9078 3.559 6.6945 3.4604L-5.6696-3.9261C-5.8715-4.0235-6.1085-4.0149-6.303-3.9031-6.4973-3.7913-6.6239-3.5907-6.6412-3.3671Z"/>
+<line transform="translate(0,0)" style="stroke: rgb(255,255,255); stroke-width: 3.2; fill: none" x1="-30.012" y1="-27.2171" x2="-20.922" y2="-16.0641"/>
+<line transform="translate(0,0)" style="stroke: rgb(255,255,255); stroke-width: 3.2; fill: none" x1="-20.8154" y1="-27.2171" x2="-11.7254" y2="-16.0641"/>
+<line transform="translate(0,0)" style="stroke: rgb(255,255,255); stroke-width: 3.2; fill: none" x1="-11.5389" y1="-27.2171" x2="-2.4489" y2="-16.0641"/>
+<line transform="translate(0,0)" style="stroke: rgb(255,255,255); stroke-width: 3.2; fill: none" x1="-1.7035" y1="-27.2171" x2="7.3865" y2="-16.0641"/>
+<line transform="translate(0,0)" style="stroke: rgb(255,255,255); stroke-width: 3.2; fill: none" x1="8.1186" y1="-27.2171" x2="17.2086" y2="-16.0641"/>
+<line transform="translate(0,0)" style="stroke: rgb(255,255,255); stroke-width: 3.2; fill: none" x1="18.1271" y1="-27.2171" x2="27.2171" y2="-16.0641"/>
+<rect transform="translate(0,0)" style="stroke: rgb(22,219,101); stroke-width: 3.2; fill: none" x="-29.8786" y="-24.6881" rx="2" ry="2" width="62.5523" height="51.9051"/>
+<line transform="translate(0,0)" style="stroke: rgb(22,219,101); stroke-width: 3.2; fill: none" x1="-29.8786" y1="-13.5354" x2="32.6736" y2="-13.5354"/>
+<path transform="translate(0,0)" style="stroke: rgb(22,219,101); stroke-width: 3.2; stroke-linecap: round; fill: none" stroke-linecap="round" d="M-3.8463-0.8384L-3.8463 14.1741C-3.8463 14.4262-3.7039 14.6566-3.4784 14.7693-3.2529 14.882-2.9832 14.8577-2.7815 14.7065L9.5825 7.1203C9.7768 6.9882 9.885 6.7618 9.8657 6.5276 9.8464 6.2933 9.7027 6.0877 9.4894 5.9891L-2.8747-1.3974C-3.0766-1.4948-3.3136-1.4862-3.5081-1.3744-3.7024-1.2626-3.829-1.062-3.8463-0.8384Z"/>
+<line transform="translate(0,0)" style="stroke: rgb(22,219,101); stroke-width: 3.2; fill: none" x1="-27.2171" y1="-24.6884" x2="-18.1271" y2="-13.5354"/>
+<line transform="translate(0,0)" style="stroke: rgb(22,219,101); stroke-width: 3.2; fill: none" x1="-18.0205" y1="-24.6884" x2="-8.9305" y2="-13.5354"/>
+<line transform="translate(0,0)" style="stroke: rgb(22,219,101); stroke-width: 3.2; fill: none" x1="-8.744" y1="-24.6884" x2="0.346" y2="-13.5354"/>
+<line transform="translate(0,0)" style="stroke: rgb(22,219,101); stroke-width: 3.2; fill: none" x1="1.0914" y1="-24.6884" x2="10.1814" y2="-13.5354"/>
+<line transform="translate(0,0)" style="stroke: rgb(22,219,101); stroke-width: 3.2; fill: none" x1="10.9136" y1="-24.6884" x2="20.0036" y2="-13.5354"/>
+<line transform="translate(0,0)" style="stroke: rgb(22,219,101); stroke-width: 3.2; fill: none" x1="20.922" y1="-24.6884" x2="30.012" y2="-13.5354"/>
+</g>
+</g>
+</svg>
