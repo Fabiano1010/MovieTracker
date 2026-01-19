@@ -40,9 +40,11 @@
 </script>
 
 <template>
-
+    <div>
+        <h1 class="title" v-if="$page.props.auth.user.username">Statistics</h1>
+    </div>
     <div class="statsContainer"  >
-        <div class="stats" v-if="props.stats">
+        <div class="stats movieCard" v-if="props.stats">
             <div class="statsName">
                 Total movies added:
             </div>
@@ -50,56 +52,56 @@
                 {{ props.stats.total_movies }}
             </div>
         </div>
-        <div class="stats" v-if="props.stats">
+        <div class="stats movieCard" v-if="props.stats">
             <div class="statsName">
                 Watched:
             </div>
             <div class="statsValue">
-                {{ props.stats.watched_count }}/<span>{{ props.stats.total_movies }}</span>
+                {{ props.stats.watched_count }}<span>/{{ props.stats.total_movies }}</span>
             </div>
         </div>
-        <div class="stats" v-if="props.stats">
+        <div class="stats movieCard" v-if="props.stats">
             <div class="statsName">
                 Not finished:
             </div>
             <div class="statsValue">
-                {{ props.stats.in_progress_count }}/<span>{{ props.stats.total_movies }}</span>
+                {{ props.stats.in_progress_count }}<span>/{{ props.stats.total_movies }}</span>
             </div>
         </div>
-        <div class="stats" v-if="props.stats">
+        <div class="stats movieCard" v-if="props.stats">
             <div class="statsName">
                 To watch:
             </div>
             <div class="statsValue">
-                {{ props.stats.to_watch_count }}/<span>{{ props.stats.total_movies }}</span>
+                {{ props.stats.to_watch_count }}<span>/{{ props.stats.total_movies }}</span>
             </div>
         </div>
-        <div class="stats" v-if="props.stats">
+        <div class="stats movieCard" v-if="props.stats">
             <div class="statsName">
                 Favourite movies count:
             </div>
             <div class="statsValue">
-                {{ props.stats.fav_count }}/<span>{{ props.stats.total_movies }}</span>
+                {{ props.stats.fav_count }}<span>/{{ props.stats.total_movies }}</span>
             </div>
         </div>
-        <div class="stats" v-if="props.stats">
+        <div class="stats movieCard" v-if="props.stats">
             <div class="statsName">
                 Comments count:
             </div>
             <div class="statsValue">
-                {{ props.stats.comment_count }}/<span>{{ props.stats.total_movies }}</span>
+                {{ props.stats.comment_count }}<span>/{{ props.stats.total_movies }}</span>
             </div>
         </div>
-        <div class="stats" v-if="props.stats">
+        <div class="stats movieCard" v-if="props.stats">
             <div class="statsName">
                 Average rating:
             </div>
             <div class="statsValue">
-                {{ formattedRating }}/<span>10</span>
+                {{ formattedRating }}<span>/10</span>
             </div>
         </div>
 
-        <div class="stats" v-else>
+        <div class="stats movieCard" v-else>
             <div class="statsValue">
                 No statistics at the moment
             </div>

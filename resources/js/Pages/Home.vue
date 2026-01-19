@@ -47,10 +47,11 @@ const fetchPopular = (country = '') => {
 <template>
     <Head :title="`| ${$page.component}`" />
 
-    <div>
+    <div class="titleDiv">
         <h1 class="title">
             MovieTracker
         </h1>
+        <img class="logo" src="../../img/movie_tracker.svg" alt="movie_logo">
     </div>
     <h1 class="subtitle">Popular now</h1>
     <div v-if="error" class="error">
