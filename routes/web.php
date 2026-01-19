@@ -13,6 +13,7 @@ Route::middleware('auth')->group(function () {
 
     Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
     Route::inertia('/search', 'Search')->name('search');
+    Route::inertia('/statistics', 'Statistics')->name('statistics');
 
     Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('movies')->group(function () {
         Route::get('/search', [ImdbController::class, 'search'])->name('movies.search');
+
         Route::get('/title', [ImdbController::class, 'getTitle'])->name('movies.title');
         Route::get('/popular', [ImdbController::class, 'getPopular'])->name('movies.popular');
 
@@ -36,6 +38,8 @@ Route::middleware('auth')->group(function () {
             ->name('movies.show');
         Route::put('/user-movies/{id}', [UserMovieController::class, 'update'])
             ->name('movies.update');
+
+        Route::get('/stats', [UserMovieController::class, 'statistics'])->name('movies.stats');
 
     });
 

@@ -272,29 +272,30 @@ class UserMovieController extends Controller
         }
     }
 
-    public function statistics(): JsonResponse
+    public function statistics()
     {
         try {
             $user = Auth::user();
 
             $stats = UserMovie::where('user_id', $user->id)
-                ->selectRaw('
-                    COUNT(*) as total_movies,
-                    SUM(CASE WHEN status = "watched" THEN 1 ELSE 0 END) as watched_count,
-                    SUM(CASE WHEN status = "to_watch" THEN 1 ELSE 0 END) as to_watch_count,
-                    SUM(CASE WHEN status = "in_progress" THEN 1 ELSE 0 END) as in_progress_count,
-                    AVG(user_rating) as average_rating,
-                    MIN(added_at) as first_added,
-                    MAX(added_at) as last_added,
-                    SUM(CASE WHEN user_rating IS NOT NULL THEN 1 ELSE 0 END) as rated_count
-                ')
+                ->selectRaw('COUNT(*) as total_movies')
+                ->selectRaw('SUM(CASE WHEN status = "watched" THEN 1 ELSE 0 END) as watched_count')
+                ->selectRaw('SUM(CASE WHEN status = "to_watch" THEN 1 ELSE 0 END) as to_watch_count')
+                ->selectRaw('SUM(CASE WHEN status = "in_progress" THEN 1 ELSE 0 END) as in_progress_count')
+                ->selectRaw('AVG(user_rating) as average_rating')
+                ->selectRaw('SUM(CASE WHEN comment IS NOT NULL THEN 1 ELSE 0 END) as comment_count')
+                ->selectRaw('SUM(CASE WHEN is_favourite = 1 THEN 1 ELSE 0 END) as fav_count')
                 ->first();
 
-            return response()->json([
-                'success' => true,
-                'data' => $stats,
-                'message' => 'Statistics retrieved successfully.'
+            return Inertia::render('Statistics', [
+
+                'stats' => $stats,
             ]);
+//            return response()->json([
+//                'success' => true,
+//                'stats' => $stats,
+//                'message' => 'Statistics retrieved successfully.'
+//            ]);
 
         } catch (\Exception $e) {
             return response()->json([

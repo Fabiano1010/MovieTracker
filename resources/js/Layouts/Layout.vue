@@ -12,6 +12,7 @@
                     <Link :href="route('home')" class="nav-link" :class="{'nav-link-current' : $page.component === 'Home' }">Home</Link>
                     <Link :href="route('dashboard')" class="nav-link" :class="{'nav-link-current' : $page.component === 'Dashboard' }">Dashboard</Link>
                     <Link :href="route('search')" class="nav-link" :class="{'nav-link-current' : $page.component === 'Search' }">Search</Link>
+                    <Link :href="route('statistics')" class="nav-link" :class="{'nav-link-current' : $page.component === 'Statistics' }">Statistics</Link>
                 </div>
                 <div v-else>
                     <Link :href="route('home')" class="nav-link" :class="{'nav-link-current' : $page.component === 'Home' }">Home</Link>
