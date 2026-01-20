@@ -67,8 +67,8 @@ const submit = () => {
             </div>
             <div class="movieCardTitle">
                 <div class="movieCardText">Original title: <p class="movieTitle">{{ titleOriginal }}</p> </div>
-                <div class="movieCardText">Primary title: <p class="movieTitle">{{ titlePrimary }}</p> </div>
-                <div class="movieCardText">Release date:  <p class="movieDate">{{ date }}</p></div>
+                <div class="movieCardText" v-if="titlePrimary">Primary title: <p class="movieTitle">{{ titlePrimary }}</p> </div>
+                <div class="movieCardText" v-if="date">Release year:  <p class="movieDate">{{ date }}</p></div>
             </div>
         </div>
         <div class="movieCardBtn">

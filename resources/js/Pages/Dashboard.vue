@@ -117,7 +117,7 @@ onUnmounted(() => {
         </div>
 
         <div>
-            <form @submit.prevent="fetchData(1, false, true)" class="movieForm">
+            <form @submit.prevent="fetchData(1, false, true)" class="movieFormDashboard">
                 <div class="userMovieFormDescription">
                     Filter:
                     <select v-model="form.selectedStatus">
