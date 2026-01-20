@@ -23,7 +23,8 @@ const props = defineProps({
 const form = useForm({
     selectedStatus: '',
     fav: false,
-    sortOption: 'desc'
+    sortOrder: 'desc',
+    sortBy: 'updated_at'
 })
 
 const loading = ref(false)
@@ -48,7 +49,8 @@ const fetchData = (page = 1, append = false, reset = false) => {
 
     router.get(route('movies.index'), {
         status: form.selectedStatus,
-        sort_order: form.sortOption,
+        sort_by: form.sortBy,
+        sort_order: form.sortOrder,
         is_favourite: form.fav,
         page: page
     }, {
@@ -126,12 +128,18 @@ onUnmounted(() => {
                     <input type="checkbox" id="remember" v-model="form.fav">
                     <label for="remember">Favourite</label>
                 </div>
+                <select v-model="form.sortBy">
+                    <option selected value="updated_at">Modified</option>
+                    <option value="original_title">Title</option>
+                    <option value="start_year">Release year</option>
+                    <option value="user_rating">Your rating</option>
+                </select>
                 <div class="movieFormRadio">
                     <p>
-                        <input type="radio" id="sortDesc" v-model="form.sortOption" value="desc"> Descending
+                        <input type="radio" id="sortDesc" v-model="form.sortOrder" value="desc"> Descending
                     </p>
                     <p>
-                        <input type="radio" id="sortAsc" v-model="form.sortOption" value="asc"> Ascending
+                        <input type="radio" id="sortAsc" v-model="form.sortOrder" value="asc"> Ascending
                     </p>
                 </div>
                 <div class="btnSectionUser">
