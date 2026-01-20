@@ -118,22 +118,29 @@ onUnmounted(() => {
 
         <div>
             <form @submit.prevent="fetchData(1, false, true)" class="movieForm">
-                <select v-model="form.selectedStatus">
-                    <option selected value="">All</option>
-                    <option value="to_watch">To watch</option>
-                    <option value="in_progress">In progress</option>
-                    <option value="watched">Finished</option>
-                </select>
-                <div class="checkboxDiv">
+                <div class="userMovieFormDescription">
+                    Filter:
+                    <select v-model="form.selectedStatus">
+                        <option selected value="">All</option>
+                        <option value="to_watch">To watch</option>
+                        <option value="in_progress">In progress</option>
+                        <option value="watched">Finished</option>
+                    </select>
+                </div>
+                <div class="checkboxDiv favCheckbox">
                     <input type="checkbox" id="remember" v-model="form.fav">
                     <label for="remember">Favourite</label>
                 </div>
-                <select v-model="form.sortBy">
-                    <option selected value="updated_at">Modified</option>
-                    <option value="original_title">Title</option>
-                    <option value="start_year">Release year</option>
-                    <option value="user_rating">Your rating</option>
-                </select>
+                <div class="userMovieFormDescription">
+                    Sort:
+                    <select v-model="form.sortBy">
+                        <option selected value="updated_at">Modified</option>
+                        <option value="original_title">Title</option>
+                        <option value="start_year">Release year</option>
+                        <option value="user_rating">Your rating</option>
+                    </select>
+                </div>
+
                 <div class="movieFormRadio">
                     <p>
                         <input type="radio" id="sortDesc" v-model="form.sortOrder" value="desc"> Descending
