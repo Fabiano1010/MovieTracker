@@ -137,10 +137,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
     }
     .primary-btn:hover{
         background-color: #16DB65;
         color: black;
+        filter: drop-shadow(0px 0px 15px #16DB65);
     }
 
     .nav-link {
@@ -156,12 +158,14 @@
     .nav-link:hover{
         color: black;
         background: #16DB65;
+        filter: drop-shadow(0px 0px 15px #16DB65);
     }
     .nav-link-current{
         background: #04622E;
     }
     .nav-link-logout:hover{
         background: #ea0000;
+        filter: drop-shadow(0px 0px 15px #ea0000);
     }
     .title {
         margin-bottom: 0.8rem;
@@ -485,6 +489,7 @@
     }
     .userMovieCard{
         height: 36%;
+        max-height: 12rem;
         gap:5%;
 
     }
