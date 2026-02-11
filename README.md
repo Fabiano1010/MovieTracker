@@ -167,30 +167,6 @@ php artisan serve
     - Home page displays current popular titles
     - Automatic rotation of featured content
 
-## Application Structure
-
-```
-movietracker/
-├── app/
-│   ├── Http/
-│   │   ├── Controllers/     # Request handling
-│   │   └─── Middleware/      # Authentication and request filtering      
-│   └── Models/              #  Models      
-├── database/
-│   ├── migrations/          # Database schema
-│   └── seeders/            # Test data
-├── resources/
-│   ├── css/                # CSS
-│   ├── img/                # Logo
-│   ├── js/
-│   │   ├── Components/     # Vue components
-│   │   ├── Layouts/        # Page layouts
-│   │   └── Pages/          # Inertia page components
-│   └── views/              # PHP blade views
-└── routes/
-    └── web.php             # Application routes
-```
-
 ## Key Components
 
 - **Movie Search:** IMDb API service layer with Laravel HTTP client
