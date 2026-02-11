@@ -83,23 +83,23 @@
 ## Installation
 
 1. Clone the repository
-```
+```{bash}
 git clone https://github.com/Fabiano1010/MovieTracker.git
 cd MovieTracker
 ```
 
 2. Install PHP dependencies
-```
+```{bash}
 composer install
 ```
 
 3. Install NPM dependencies
-```
+```{bash}
 npm install
 ```
 
 4. Environment configuration
-```
+```{bash}
 cp .env.example .env
 php artisan key:generate
 ```
@@ -115,17 +115,17 @@ DB_PASSWORD=
 ```
 
 6. Run database migrations
-```
+```{bash}
 php artisan migrate
 ```
 
 7. Build frontend assets
-```
+```{bash}
 npm run dev
 ```
 
 8. Start development server
-```
+```{bash}
 php artisan serve
 ```
 
